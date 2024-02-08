@@ -1,0 +1,43 @@
+<mat-card>
+    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Add Movie</h1>
+    <mat-card-content>
+        <div class="bootstrap-wrapper">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form (ngSubmit)="onSubmit()">
+                        <mat-form-field style="width: 100%;" appearance="outline">
+                            <mat-label>MovieName</mat-label>
+                            <input matInput type="text" name="title" placeholder="Enter Movie Name"
+                                [(ngModel)]="movie.movieName" required autofocus>
+                        </mat-form-field>
+                        <mat-form-field style="width: 100%;" appearance="outline">
+                            <mat-label>Poster Image</mat-label>
+                            <input matInput type="text" name="poster" placeholder="Enter Image Link" [(ngModel)]="movie.poster" required
+                                autofocus>
+                        </mat-form-field>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field style="width: 100%;" appearance="outline">
+                                    <mat-label>Duration</mat-label>
+                                    <input [(ngModel)]="movie.duration" matInput type="text" name="duration"
+                                        placeholder="Enter Movie Duration" required autofocus>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field style="width: 100%;" appearance="outline">
+                                    <mat-label>Release Date</mat-label>
+                                    <input [(ngModel)]="movie.releaseDate" matInput type="text" name="releaseDate" placeholder="Enter Release Date"
+                                        required autofocus>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <div class="container text-center" style="margin: 20px;">
+        <button mat-raised-button color="accent" (click)="onSubmit()">Add Movie</button>
+    </div>
+</mat-card>

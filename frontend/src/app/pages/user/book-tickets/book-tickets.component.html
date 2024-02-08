@@ -1,0 +1,16 @@
+<h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Shows for {{ shows[0].movie.movieName }}</h1>
+<div class="body" style="display: flex; flex-wrap: wrap;">
+    <div *ngFor="let show of shows">
+        <div class="card" style="width: 250px; height: 200px; margin: 20px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ show.theatre.theatreName }}, {{ show.theatre.location }}</h5> <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ show.startTime }} to {{ show.endTime }}</h6>
+                <p>
+                    Price: Rs. {{ show.ticketPrice }} / Person
+                    <br />Seats left: {{ 100 }}
+                </p>
+                <button type="button" class="btn btn-primary" (click)="seatsNavigation(show)">Book Seats</button>
+            </div>
+        </div>
+    </div>
+</div>

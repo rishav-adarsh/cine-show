@@ -1,0 +1,30 @@
+<h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Book seats for {{ show.movie.movieName }}</h1>
+<div class="body">
+    <div class="screen"></div>
+    
+    <div *ngFor="let row of show.isSeatBooked; let r = index">
+        <div class="row" *ngFor="let seat of row; let c = index">
+            <div 
+            [className]="seat ? 'seat occupied' : isSeatBooked[r][c] ? 'seat selected' : 'seat'"
+            (click)="selectSeat(r, c)"
+            ></div>
+        </div><br />
+    </div>
+
+    <div class="seat-types">
+        <div class="seat"></div>
+        <small>N/A</small>
+        <div class="seat selected"></div>
+        <small>Selected</small>
+        <div class="seat occupied"></div>
+        <small>Occupied</small>
+    </div>
+
+
+    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+            <h3 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">{{ selectedSeatsCount }} seats selected for
+                Rs. {{ selectedSeatsCount*show.ticketPrice }}</h3>
+        <button style="margin: 3%;" type="button" class="btn btn-primary" (click)="bookMySeats()">BOOK MY SEATS</button>
+    </div>
+
+</div>

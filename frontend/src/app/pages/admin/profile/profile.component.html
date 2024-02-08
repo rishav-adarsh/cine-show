@@ -1,0 +1,49 @@
+<mat-card>
+    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Your Profile</h1>
+    <mat-card-content>
+        <div class="bootstrap-wrapper" style="font-family: cursive;">
+            <div class="container">
+                <div class="container text-center">
+                    <img class="profile-image"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-5cZ42du3jN_0TMInbAdcVVn7tHgs0zkwA&usqp=CAU"
+                        alt="" />
+                </div>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <h2 style="text-align: center;">{{activeUser.firstName}} {{activeUser.lastName}}</h2>
+                        <table class="table">
+                            <tr>
+                                <td><b>Username</b></td>
+                                <td>{{activeUser.username}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>UserId</b></td>
+                                <td>{{activeUser.id}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Role</b></td>
+                                <td>{{userRole}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Phone</b></td>
+                                <td>{{activeUser.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td>{{activeUser.email}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Active</b></td>
+                                <td>{{activeUser.enabled}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="text-center" style="justify-content: center;">
+        <button mat-raised-button color="primary" style="margin: 2%;">Update</button>
+        <button mat-raised-button color="accent">Share</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,62 @@
+<mat-card>
+    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Add Quiz</h1>
+    <mat-card-content>
+        <div class="bootstrap-wrapper">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field style="width: 100%;" appearance="outline">
+                                    <mat-label>Start Time</mat-label>
+                                    <input [(ngModel)]="show.startTime" matInput type="text"
+                                        name="start" placeholder="Enter start time" required autofocus>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field style="width: 100%;" appearance="outline">
+                                    <mat-label>End Time</mat-label>
+                                    <input [(ngModel)]="show.endTime" matInput type="text" name="end"
+                                        placeholder="Enter end time" required autofocus>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field style="width: 100%;" appearance="outline">
+                                    <mat-label>Price per Person</mat-label>
+                                    <input [(ngModel)]="show.ticketPrice" matInput type="text" name="end" placeholder="Enter end time" required
+                                        autofocus>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <mat-form-field style="width: 100%; margin-top: 1%;" appearance="outline">
+                                <mat-label>Select Movie</mat-label>
+                                <mat-select name="category" [(ngModel)]="show.movie.movieId">
+                                    <mat-option *ngFor="let movie of movies" [value]="movie.movieId">
+                                        {{movie.movieName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field style="width: 100%; margin-top: 1%;" appearance="outline">
+                                <mat-label>Select Theatre</mat-label>
+                                <mat-select name="category" [(ngModel)]="show.theatre.theatreId">
+                                    <mat-option *ngFor="let theatre of theatres" [value]="theatre.theatreId">
+                                        {{theatre.theatreName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <div class="container text-center" style="margin: 20px;">
+        <button (click)="onSubmit()" mat-raised-button color="accent">Add Quiz</button>
+    </div>
+</mat-card>
+
+{{ show | json }}

@@ -1,0 +1,19 @@
+<mat-card>
+    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">All Movies</h1>
+    <mat-list>
+        <mat-list-item *ngFor="let movie of movies" style="height: fit-content;">
+            <div style="display: inline-flex; margin: 1%; font-family: cursive;">
+                <mat-icon mat-list-icon>movie</mat-icon>
+                <div style="margin-left: 10px;">
+                    <div mat-line> <h4>{{ movie.movieName }}</h4> </div>
+                    <div mat-line>Rating: {{ movie.rating }}, Duration: {{ movie.duration }} mins</div>
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+    <div class="container text-center" style="margin: 20px;">
+        <button mat-raised-button color="accent" routerLink="/admin/add-movie">Add New Movie</button>
+    </div>
+</mat-card>

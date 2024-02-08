@@ -1,0 +1,17 @@
+<div>
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>QuizBuzz</span>
+        <span class="example-spacer"></span>
+        <div *ngIf="!this.loginService.isLoggedIn(); else logout">
+            <button routerLink="/login" mat-raised-button color="accent">Login</button>
+            <button routerLink="/signup" mat-raised-button color="warn">Signup</button>
+        </div>
+        <ng-template #logout>
+            <!-- {{this.activeUser.username}} -->
+            <button routerLink="/" mat-raised-button color="warn" (click)="logoutUser()">Logout</button>
+        </ng-template>
+    </mat-toolbar>
+</div>

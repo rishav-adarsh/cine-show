@@ -1,0 +1,43 @@
+<div class="text-center">
+    <img style="width: 8%; margin: 1%" src="../../../assets/signup.png" alt="No Image" />
+    <h1 style="font-family: cursive">Register Here</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input formControlName="username" matInput placeholder="Username" />
+            <mat-hint>Username must be unique</mat-hint>
+        </mat-form-field><br>
+
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>Enter your password</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" matInput placeholder="First Name" />
+        </mat-form-field><br>
+
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" matInput placeholder="LastName" />
+        </mat-form-field><br>
+
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Email" />
+        </mat-form-field><br>
+
+        <mat-form-field class="form-input" appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone" />
+        </mat-form-field><br>
+
+        <button type="submit" mat-raised-button color="primary">Signup</button>
+        <button type="reset" style="margin: 2%;" mat-raised-button color="accent">Reset</button>
+    </form>
+</div>
