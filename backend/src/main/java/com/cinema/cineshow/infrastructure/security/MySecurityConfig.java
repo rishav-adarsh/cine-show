@@ -35,6 +35,7 @@ public class MySecurityConfig {
     private static final String[] PUBLIC_URLS = {
             "/auth/generate-token",
             "/users",
+            "/health",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html"
@@ -59,7 +60,12 @@ public class MySecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+        String allowedOrigin = System.getenv("ALLOWED_ORIGIN");
+        if (allowedOrigin == null || allowedOrigin.isEmpty()) {
+            configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+        } else {
+            configuration.setAllowedOrigins(List.of(allowedOrigin));
+        }
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
