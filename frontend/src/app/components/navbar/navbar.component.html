@@ -15,7 +15,7 @@
         </button>
     </div>
     <ng-template #logout>
-        <button mat-stroked-button class="app-btn nav-btn nav-btn-ghost" routerLink="/user/explore">
+        <button *ngIf="loginService.getActiveUserRole() === 'default-role-csid'" mat-stroked-button class="app-btn nav-btn nav-btn-ghost" routerLink="/user/explore">
             <mat-icon>explore</mat-icon>
             Explore
         </button>
@@ -38,6 +38,10 @@
                 <a routerLink="/user/explore" *ngIf="loginService.getActiveUserRole() === 'default-role-csid'">
                     <mat-icon>movie_filter</mat-icon>
                     Explore Movies
+                </a>
+                <a routerLink="/user/my-bookings" *ngIf="loginService.getActiveUserRole() === 'default-role-csid'">
+                    <mat-icon>receipt_long</mat-icon>
+                    My Bookings
                 </a>
                 <a routerLink="/admin" *ngIf="loginService.getActiveUserRole() === 'admin-role-csid'">
                     <mat-icon>dashboard</mat-icon>

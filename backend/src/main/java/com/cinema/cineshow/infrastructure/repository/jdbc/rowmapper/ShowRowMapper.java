@@ -29,17 +29,6 @@ public class ShowRowMapper implements RowMapper<Show> {
         show.setMovieId(rs.getString("movie_id"));
         show.setTheatreId(rs.getString("theatre_id"));
 
-        String seatMapJson = rs.getString("seat_booked_map");
-        if (seatMapJson != null && !seatMapJson.isBlank()) {
-            try {
-                show.setBookedSeatIds(MAPPER.readValue(seatMapJson, new TypeReference<List<String>>() {}));
-            } catch (JsonProcessingException e) {
-                show.setBookedSeatIds(new ArrayList<>());
-            }
-        } else {
-            show.setBookedSeatIds(new ArrayList<>());
-        }
-
         show.setStatus(ShowStatus.valueOf(rs.getString("status")));
         show.setIsDeleted(rs.getBoolean("is_deleted"));
 

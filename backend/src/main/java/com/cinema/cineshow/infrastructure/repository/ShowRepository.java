@@ -43,25 +43,18 @@ public class ShowRepository {
     }
 
     public Show save(Show show) {
-        String bookedSeatsJson;
-        try {
-            bookedSeatsJson = MAPPER.writeValueAsString(show.getBookedSeatIds());
-        } catch (JsonProcessingException e) {
-            bookedSeatsJson = "[]";
-        }
-
         if (show.getCsid() == null) {
             show.setCsid(UUID.randomUUID().toString());
-            String sql = "INSERT INTO shows (csid, start_time, end_time, ticket_price, movie_id, theatre_id, seat_booked_map, status, is_deleted) VALUES (?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?)";
+            String sql = "INSERT INTO shows (csid, start_time, end_time, ticket_price, movie_id, theatre_id, status, is_deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(sql,
                 show.getCsid(), show.getStartTime(), show.getEndTime(), show.getTicketPrice(), 
-                show.getMovieId(), show.getTheatreId(), bookedSeatsJson, show.getStatus().name(), show.getIsDeleted());
+                show.getMovieId(), show.getTheatreId(), show.getStatus().name(), show.getIsDeleted());
         } else {
-            String sql = "UPDATE shows SET start_time = ?, end_time = ?, ticket_price = ?, movie_id = ?, theatre_id = ?, seat_booked_map = ?::jsonb, status = ?, is_deleted = ? WHERE csid = ?";
+            String sql = "UPDATE shows SET start_time = ?, end_time = ?, ticket_price = ?, movie_id = ?, theatre_id = ?, status = ?, is_deleted = ? WHERE csid = ?";
             jdbcTemplate.update(sql,
                 show.getStartTime(), show.getEndTime(), show.getTicketPrice(), 
                 show.getMovieId(), show.getTheatreId(), 
-                bookedSeatsJson, show.getStatus().name(), show.getIsDeleted(), show.getCsid());
+                show.getStatus().name(), show.getIsDeleted(), show.getCsid());
         }
         return show;
     }

@@ -16,6 +16,18 @@ export class SeatService {
     );
   }
 
+  public getShowSeats(showId: string) {
+    return this.http.get(`${baseServerUrl}/show-seats/show/${showId}`).pipe(
+      map((response: any) => response.data)
+    );
+  }
+
+  public lockSeats(showId: string, lockRequest: { seatIds: string[], userId: string }) {
+    return this.http.post(`${baseServerUrl}/show-seats/show/${showId}/lock`, lockRequest).pipe(
+      map((response: any) => response.data)
+    );
+  }
+
   public setupSeats(theatreId: string, setupRequest: any) {
     return this.http.post(`${baseServerUrl}/seats/theatre/${theatreId}/setup`, setupRequest).pipe(
       map((response: any) => response.data)

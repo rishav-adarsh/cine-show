@@ -13,7 +13,6 @@ public class ShowDtos {
         private LocalDateTime startTime;
         private LocalDateTime endTime;
         private Double ticketPrice;
-        private List<String> bookedSeatIds;
 
         public String getMovieId() {
             return movieId;
@@ -54,14 +53,6 @@ public class ShowDtos {
         public void setTicketPrice(Double ticketPrice) {
             this.ticketPrice = ticketPrice;
         }
-
-        public List<String> getBookedSeatIds() {
-            return bookedSeatIds;
-        }
-
-        public void setBookedSeatIds(List<String> bookedSeatIds) {
-            this.bookedSeatIds = bookedSeatIds;
-        }
     }
 
     public static class ShowResponse {
@@ -69,7 +60,6 @@ public class ShowDtos {
         private LocalDateTime startTime;
         private LocalDateTime endTime;
         private Double ticketPrice;
-        private List<String> bookedSeatIds;
         private MovieDtos.MovieResponse movie;
         private TheatreDtos.TheatreResponse theatre;
 
@@ -103,14 +93,6 @@ public class ShowDtos {
 
         public void setTicketPrice(Double ticketPrice) {
             this.ticketPrice = ticketPrice;
-        }
-
-        public List<String> getBookedSeatIds() {
-            return bookedSeatIds;
-        }
-
-        public void setBookedSeatIds(List<String> bookedSeatIds) {
-            this.bookedSeatIds = bookedSeatIds;
         }
 
         public MovieDtos.MovieResponse getMovie() {

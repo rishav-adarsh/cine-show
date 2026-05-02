@@ -29,7 +29,6 @@ public class ShowMapper {
         show.setStartTime(request.getStartTime());
         show.setEndTime(request.getEndTime());
         show.setTicketPrice(request.getTicketPrice());
-        show.setBookedSeatIds(request.getBookedSeatIds());
         // csid is ignored
         return show;
     }
@@ -40,7 +39,6 @@ public class ShowMapper {
         response.setStartTime(show.getStartTime());
         response.setEndTime(show.getEndTime());
         response.setTicketPrice(show.getTicketPrice());
-        response.setBookedSeatIds(show.getBookedSeatIds());
         response.setMovie(movieService.getMovie(show.getMovieId()).map(movieMapper::toResponse).orElse(null));
         response.setTheatre(theatreService.getTheatre(show.getTheatreId()).map(theatreMapper::toResponse).orElse(null));
         return response;

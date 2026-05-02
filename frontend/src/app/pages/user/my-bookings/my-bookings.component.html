@@ -1,0 +1,92 @@
+<div class="bootstrap-wrapper">
+    <div class="container-fluid page-shell">
+        <section class="hero-card mb30">
+            <div class="header-content">
+                <h1 class="hero-title">My Bookings</h1>
+                <p class="hero-subtitle">View your past and upcoming movie tickets</p>
+            </div>
+        </section>
+
+        <div class="bookings-container">
+            <div *ngIf="isLoading" class="text-center p20">
+                <mat-spinner style="margin: 0 auto;"></mat-spinner>
+                <p class="mt10 text-light">Fetching your cinematic journey...</p>
+            </div>
+
+            <div *ngIf="!isLoading && bookings.length === 0" class="text-center p20 empty-state glass-card">
+                <div class="empty-icon-container">
+                    <mat-icon class="empty-icon">confirmation_number</mat-icon>
+                </div>
+                <h3>No bookings yet!</h3>
+                <p>Looks like you haven't booked any movies recently.</p>
+                <button mat-raised-button color="primary" routerLink="/user/movies" class="explore-btn app-btn">
+                    <mat-icon>local_movies</mat-icon> Explore Movies
+                </button>
+            </div>
+
+            <div *ngIf="!isLoading && bookings.length > 0">
+                <div class="row">
+                    <div class="col-md-12 mb30" *ngFor="let booking of bookings">
+                        <div class="ticket-container glass-card fade-in">
+                            <div class="ticket-left">
+                                <div class="movie-poster-container">
+                                    <img [src]="booking.moviePoster" [appImgFallback]="'assets/movie-placeholder.png'" class="ticket-poster">
+                                    <div class="status-overlay" [ngClass]="getStatusClass(booking.status)">
+                                        {{booking.status}}
+                                    </div>
+                                </div>
+                                <div class="ticket-movie-details">
+                                    <h2 class="movie-title">{{booking.movieName}}</h2>
+                                    <div class="movie-tags">
+                                        <span class="tag">{{booking.movieLanguage}}</span>
+                                        <span class="tag">{{booking.movieGenre}}</span>
+                                        <span class="tag">{{formatDuration(booking.movieDuration)}}</span>
+                                    </div>
+                                    <div class="theatre-details mt10">
+                                        <p><mat-icon>location_on</mat-icon> {{booking.theatreName}}</p>
+                                        <p class="location-sub">{{booking.theatreLocation}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ticket-divider">
+                                <div class="arc arc-top"></div>
+                                <div class="dashed-line"></div>
+                                <div class="arc arc-bottom"></div>
+                            </div>
+
+                            <div class="ticket-right">
+                                <div class="show-info">
+                                    <div class="info-item">
+                                        <span class="info-label">DATE</span>
+                                        <span class="info-value">{{booking.startTime | date: 'EEE, dd MMM'}}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">TIME</span>
+                                        <span class="info-value">{{booking.startTime | date: 'hh:mm a'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="seat-info-box mt15">
+                                    <span class="info-label">SEATS</span>
+                                    <div class="seat-badges">
+                                        <span class="seat-badge" *ngFor="let seat of booking.seatNumbers">{{seat}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="price-info mt15">
+                                        <span class="info-label">TOTAL PAID</span>
+                                        <span class="total-price">₹{{booking.totalAmount}}</span>
+                                    </div>
+                                    
+                                    <div class="payment-details mt15">
+                                        <span class="payment-via">{{booking.paymentMethod}} • {{booking.transactionId}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

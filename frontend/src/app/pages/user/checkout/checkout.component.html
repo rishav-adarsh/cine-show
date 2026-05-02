@@ -1,0 +1,165 @@
+<div class="checkout-container bootstrap-wrapper">
+    <div class="container py-5">
+        <div class="row">
+            <!-- Left Side: Order Summary -->
+            <div class="col-md-5">
+                <div class="card summary-card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="m-0"><mat-icon class="align-middle">shopping_cart</mat-icon> Order Summary</h2>
+                            <button mat-icon-button (click)="cancelCheckout()" class="text-white">
+                                <mat-icon>arrow_back</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-4" *ngIf="bookingDetails">
+                        <div class="movie-info text-center mb-4">
+                            <h3 class="movie-title">{{ bookingDetails.movieName }}</h3>
+                            <p class="text-muted"><mat-icon class="tiny-icon">videocam</mat-icon> {{ bookingDetails.theatreName }}</p>
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                        <div class="detail-row mt-4">
+                            <span class="label text-muted">Seats</span>
+                            <span class="value font-weight-bold">{{ bookingDetails.seatNumbers.join(', ') }}</span>
+                        </div>
+
+                        <div class="detail-row mt-3">
+                            <span class="label text-muted">Booking Fee</span>
+                            <span class="value">Rs. 0.00</span>
+                        </div>
+
+                        <mat-divider class="my-4"></mat-divider>
+
+                        <div class="total-row d-flex justify-content-between align-items-center">
+                            <span class="h4 m-0">Total Amount</span>
+                            <span class="h2 m-0 text-primary font-weight-bold">Rs. {{ bookingDetails.totalAmount }}</span>
+                        </div>
+
+                        <div class="timer-box mt-4 p-3 rounded d-flex align-items-center justify-content-center" [ngClass]="timeLeft < 60 ? 'timer-danger' : 'timer-normal'">
+                            <mat-icon class="mr-2">timer</mat-icon>
+                            <span>Locked for: <strong>{{ formattedTime }}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Payment Methods -->
+            <div class="col-md-7">
+                <div class="card payment-card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <h2 class="payment-title mb-4">Payment Method</h2>
+                        
+                        <mat-radio-group [(ngModel)]="selectedPaymentMethod" class="payment-options">
+                            <div class="payment-option-item mb-3 p-3" 
+                                 [ngClass]="{'active-option': selectedPaymentMethod === 'card'}">
+                                <mat-radio-button value="card">
+                                    <div class="d-flex align-items-center ml-3">
+                                        <div class="icon-wrapper mr-3">
+                                            <mat-icon class="payment-icon">credit_card</mat-icon>
+                                        </div>
+                                        <div>
+                                            <div class="method-name">Credit / Debit Card</div>
+                                            <div class="method-subtext">Visa, Mastercard, RuPay, Amex</div>
+                                        </div>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+
+                            <div class="payment-option-item mb-3 p-3"
+                                 [ngClass]="{'active-option': selectedPaymentMethod === 'upi'}">
+                                <mat-radio-button value="upi">
+                                    <div class="d-flex align-items-center ml-3">
+                                        <div class="icon-wrapper mr-3">
+                                            <mat-icon class="payment-icon">bolt</mat-icon>
+                                        </div>
+                                        <div>
+                                            <div class="method-name">Instant UPI</div>
+                                            <div class="method-subtext">Google Pay, PhonePe, Paytm UPI</div>
+                                        </div>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+
+                            <div class="payment-option-item mb-3 p-3"
+                                 [ngClass]="{'active-option': selectedPaymentMethod === 'netbanking'}">
+                                <mat-radio-button value="netbanking">
+                                    <div class="d-flex align-items-center ml-3">
+                                        <div class="icon-wrapper mr-3">
+                                            <mat-icon class="payment-icon">account_balance</mat-icon>
+                                        </div>
+                                        <div>
+                                            <div class="method-name">Net Banking</div>
+                                            <div class="method-subtext">HDFC, SBI, ICICI, Axis & more</div>
+                                        </div>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+
+                            <div class="payment-option-item mb-3 p-3"
+                                 [ngClass]="{'active-option': selectedPaymentMethod === 'wallet'}">
+                                <mat-radio-button value="wallet">
+                                    <div class="d-flex align-items-center ml-3">
+                                        <div class="icon-wrapper mr-3">
+                                            <mat-icon class="payment-icon">wallet</mat-icon>
+                                        </div>
+                                        <div>
+                                            <div class="method-name">Digital Wallets</div>
+                                            <div class="method-subtext">Amazon Pay, MobiKwik</div>
+                                        </div>
+                                    </div>
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+
+                        <!-- Simulated Card Form -->
+                        <div class="card-form mt-4 animate__animated animate__fadeIn" *ngIf="selectedPaymentMethod === 'card'">
+                            <div class="form-group mb-3">
+                                <label class="small font-weight-bold text-uppercase text-muted">Card Holder Name</label>
+                                <input type="text" class="form-control" placeholder="AS APPEARS ON CARD">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="small font-weight-bold text-uppercase text-muted">Card Number</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-white"><mat-icon class="tiny-icon">lock</mat-icon></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small font-weight-bold text-uppercase text-muted">Expiry</label>
+                                    <input type="text" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="col-6">
+                                    <label class="small font-weight-bold text-uppercase text-muted">CVV</label>
+                                    <input type="password" class="form-control" placeholder="***">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Simulated UPI Form -->
+                        <div class="upi-form mt-4 animate__animated animate__fadeIn" *ngIf="selectedPaymentMethod === 'upi'">
+                            <div class="form-group">
+                                <label class="small font-weight-bold text-uppercase text-muted">Enter UPI ID</label>
+                                <input type="text" class="form-control" placeholder="username@bank">
+                                <p class="small text-muted mt-1">A request will be sent to your UPI app.</p>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button color="primary" class="w-100 mt-5 py-2 pay-btn" 
+                                (click)="confirmPayment()" [disabled]="timeLeft <= 0">
+                            <span class="h5">SECURE PAYMENT: Rs. {{ bookingDetails?.totalAmount }}</span>
+                        </button>
+                        
+                        <div class="text-center mt-3 text-muted small">
+                            <mat-icon class="tiny-icon align-middle">lock</mat-icon> Secure SSL Encrypted Payment
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

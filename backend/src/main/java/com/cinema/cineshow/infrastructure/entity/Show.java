@@ -10,20 +10,18 @@ public class Show {
     private Double ticketPrice = 300.0;
     private String movieId;
     private String theatreId;
-    private List<String> bookedSeatIds;
     private ShowStatus status = ShowStatus.ACTIVE;
     private boolean isDeleted = false;
 
     public Show() {}
 
-    public Show(String csid, LocalDateTime startTime, LocalDateTime endTime, Double ticketPrice, String movieId, String theatreId, List<String> bookedSeatIds, ShowStatus status, boolean isDeleted) {
+    public Show(String csid, LocalDateTime startTime, LocalDateTime endTime, Double ticketPrice, String movieId, String theatreId, ShowStatus status, boolean isDeleted) {
         this.csid = csid;
         this.startTime = startTime;
         this.endTime = endTime;
         this.ticketPrice = ticketPrice;
         this.movieId = movieId;
         this.theatreId = theatreId;
-        this.bookedSeatIds = bookedSeatIds;
         this.status = status;
         this.isDeleted = isDeleted;
     }
@@ -46,9 +44,6 @@ public class Show {
     public String getTheatreId() { return theatreId; }
     public void setTheatreId(String theatreId) { this.theatreId = theatreId; }
 
-    public List<String> getBookedSeatIds() { return bookedSeatIds; }
-    public void setBookedSeatIds(List<String> bookedSeatIds) { this.bookedSeatIds = bookedSeatIds; }
-
     public ShowStatus getStatus() { return status; }
     public void setStatus(ShowStatus status) { this.status = status; }
 
@@ -66,7 +61,6 @@ public class Show {
         private Double ticketPrice = 300.0;
         private String movieId;
         private String theatreId;
-        private List<String> bookedSeatIds;
         private ShowStatus status = ShowStatus.ACTIVE;
         private boolean isDeleted = false;
 
@@ -78,12 +72,11 @@ public class Show {
         public ShowBuilder ticketPrice(Double ticketPrice) { this.ticketPrice = ticketPrice; return this; }
         public ShowBuilder movieId(String movieId) { this.movieId = movieId; return this; }
         public ShowBuilder theatreId(String theatreId) { this.theatreId = theatreId; return this; }
-        public ShowBuilder bookedSeatIds(List<String> bookedSeatIds) { this.bookedSeatIds = bookedSeatIds; return this; }
         public ShowBuilder status(ShowStatus status) { this.status = status; return this; }
         public ShowBuilder isDeleted(boolean isDeleted) { this.isDeleted = isDeleted; return this; }
 
         public Show build() {
-            return new Show(csid, startTime, endTime, ticketPrice, movieId, theatreId, bookedSeatIds, status, isDeleted);
+            return new Show(csid, startTime, endTime, ticketPrice, movieId, theatreId, status, isDeleted);
         }
     }
 }

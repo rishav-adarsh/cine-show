@@ -43,6 +43,11 @@ import { ImgFallbackDirective } from './directives/img-fallback.directive';
 import { BookTicketsComponent } from './pages/user/book-tickets/book-tickets.component';
 import { BookSeatsComponent } from './pages/user/book-seats/book-seats.component';
 import { ExploreComponent } from './pages/user/explore/explore.component';
+import { CheckoutComponent } from './pages/user/checkout/checkout.component';
+import { MyBookingsComponent } from './pages/user/my-bookings/my-bookings.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -70,6 +75,8 @@ import { ExploreComponent } from './pages/user/explore/explore.component';
     BookTicketsComponent,
     BookSeatsComponent,
     ExploreComponent,
+    CheckoutComponent,
+    MyBookingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +99,9 @@ import { ExploreComponent } from './pages/user/explore/explore.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
+    MatRadioModule,
+    MatChipsModule,
   ],
   providers: [...AuthInterceptorProviders],
   bootstrap: [AppComponent],

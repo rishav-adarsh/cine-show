@@ -15,6 +15,7 @@ export class BookSeatsComponent implements OnInit {
 
   show: any = null;
   showId: any = null;
+  showSeats: any[] = [];
   seatRows: any[][] = [];
   selectedSeatIds: Set<string> = new Set();
   selectedSeatNumbers: string[] = [];
@@ -44,11 +45,23 @@ export class BookSeatsComponent implements OnInit {
     this.showService.fetchShowByShowId(this.showId).subscribe(
       (data: any) => {
         this.show = data;
-        this.loadSeats(data.theatre.theatreId);
+        this.loadShowSeats();
       },
       (error: any) => {
-        this.errorMessage = 'Failed to load show details. The show might not exist or there was a server error.';
+        this.errorMessage = 'Failed to load show details.';
         Swal.fire('Error :(', 'Error in loading show details!!', 'error');
+      }
+    );
+  }
+
+  loadShowSeats() {
+    this.seatService.getShowSeats(this.showId).subscribe(
+      (showSeats: any[]) => {
+        this.showSeats = showSeats;
+        this.loadSeats(this.show.theatre.theatreId);
+      },
+      (error: any) => {
+        this.errorMessage = 'Failed to load availability for this show.';
       }
     );
   }
@@ -74,15 +87,19 @@ export class BookSeatsComponent implements OnInit {
       rows[seat.row].push(seat);
     });
 
-    // Convert map to sorted 2D array
     this.seatRows = Object.keys(rows)
       .map(key => Number(key))
       .sort((a, b) => a - b)
       .map(rowNum => rows[rowNum].sort((a, b) => a.col - b.col));
   }
 
+  getShowSeat(seatId: string) {
+    return this.showSeats.find(ss => ss.seatId === seatId);
+  }
+
   isSeatOccupied(seatId: string): boolean {
-    return this.show && this.show.bookedSeatIds && this.show.bookedSeatIds.includes(seatId);
+    const ss = this.getShowSeat(seatId);
+    return ss && (ss.status === 'BOOKED' || ss.status === 'LOCKED');
   }
 
   isSeatSelected(seatId: string): boolean {
@@ -116,56 +133,30 @@ export class BookSeatsComponent implements OnInit {
       return;
     }
 
-    // 1. Create the booking in MongoDB
-    const bookingData = {
-      userId: user.csid,
-      showId: this.show.csid,
-      seatNumbers: this.selectedSeatNumbers,
-      totalAmount: this.selectedSeatsCount * this.show.ticketPrice,
-      status: 'PENDING',
-      paymentDetails: {
-        paymentMethod: 'ONLINE',
-        paymentStatus: 'PAID',
-        transactionId: 'TXN-' + Date.now()
-      }
+    // 1. Lock the seats first
+    const lockRequest = {
+      seatIds: Array.from(this.selectedSeatIds),
+      userId: user.csid
     };
 
-    this.bookingService.createBooking(bookingData).subscribe(
-      (booking: any) => {
-        // 2. Update the Show with the newly booked seats
-        const updatedBookedSeatIds = [
-          ...(this.show.bookedSeatIds || []),
-          ...Array.from(this.selectedSeatIds)
-        ];
-
-        const showData = {
-          movieId: this.show.movie.movieId,
-          theatreId: this.show.theatre.theatreId,
-          startTime: this.show.startTime,
-          endTime: this.show.endTime,
-          ticketPrice: this.show.ticketPrice,
-          bookedSeatIds: updatedBookedSeatIds
+    this.seatService.lockSeats(this.showId, lockRequest).subscribe(
+      () => {
+        // 2. If locking is successful, navigate to Checkout page
+        const bookingData = {
+          userId: user.csid,
+          showId: this.show.csid,
+          movieName: this.show.movie.movieName,
+          theatreName: this.show.theatre.theatreName,
+          seatIds: Array.from(this.selectedSeatIds),
+          seatNumbers: this.selectedSeatNumbers,
+          totalAmount: this.selectedSeatsCount * this.show.ticketPrice
         };
 
-        this.showService.bookMySeats(this.show.csid, showData).subscribe(
-          (updatedShow: any) => {
-            Swal.fire(
-              'Success :)',
-              `Booking successful for ${this.show.movie.movieName}! Total: Rs. ${booking.totalAmount}`,
-              'success'
-            );
-            this.selectedSeatIds.clear();
-            this.selectedSeatNumbers = [];
-            this.selectedSeatsCount = 0;
-            this.loadShowDetails(); // Refresh to show occupied seats
-          },
-          (err: any) => {
-            Swal.fire('Error :(', 'Show update failed after booking!!', 'error');
-          }
-        );
+        this.router.navigate(['/user/checkout'], { state: { bookingData } });
       },
       (err: any) => {
-        Swal.fire('Error :(', 'Server Error while creating booking!!', 'error');
+        Swal.fire('Error :(', 'Some seats were already taken or locked. Please refresh.', 'error');
+        this.loadShowDetails();
       }
     );
   }
