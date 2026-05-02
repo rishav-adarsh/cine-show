@@ -1,19 +1,35 @@
-<mat-card>
-    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">All Movies</h1>
-    <mat-list>
-        <mat-list-item *ngFor="let movie of movies" style="height: fit-content;">
-            <div style="display: inline-flex; margin: 1%; font-family: cursive;">
-                <mat-icon mat-list-icon>movie</mat-icon>
-                <div style="margin-left: 10px;">
-                    <div mat-line> <h4>{{ movie.movieName }}</h4> </div>
-                    <div mat-line>Rating: {{ movie.rating }}, Duration: {{ movie.duration }} mins</div>
-                </div>
-                <mat-divider></mat-divider>
-            </div>
-        </mat-list-item>
-    </mat-list>
-
-    <div class="container text-center" style="margin: 20px;">
-        <button mat-raised-button color="accent" routerLink="/admin/add-movie">Add New Movie</button>
+<section class="listing-card fade-up">
+    <h1 class="section-title">All Movies</h1>
+    <div class="filters-bar">
+        <mat-form-field appearance="outline">
+            <mat-label>Search movie</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" placeholder="Search by title" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Minimum rating</mat-label>
+            <mat-select [(ngModel)]="minRating" (selectionChange)="applyFilters()">
+                <mat-option [value]="0">All ratings</mat-option>
+                <mat-option [value]="6">6+</mat-option>
+                <mat-option [value]="7">7+</mat-option>
+                <mat-option [value]="8">8+</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
-</mat-card>
+
+    <div *ngIf="isLoading" class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let n of [1,2,3]"></div>
+    </div>
+
+    <div class="listing-item" *ngFor="let movie of filteredMovies" [hidden]="isLoading">
+        <mat-icon>movie</mat-icon>
+        <div>
+            <h4>{{ movie.movieName }}</h4>
+            <p class="section-subtitle">Rating: {{ movie.rating }} | Duration: {{ movie.duration }} mins</p>
+        </div>
+    </div>
+
+    <p class="section-subtitle" *ngIf="!isLoading && !filteredMovies.length">No movies found for this filter.</p>
+    <div class="text-center">
+        <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/add-movie">Add New Movie</button>
+    </div>
+</section>

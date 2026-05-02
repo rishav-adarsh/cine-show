@@ -14,7 +14,7 @@ export class MovieCardComponent {
 
   bookingNavigation() {
     this.router.navigate(
-      ['book'],
+      ['/user/book'],
       {
         queryParams: { movieId: this.movieData.movieId }
       }

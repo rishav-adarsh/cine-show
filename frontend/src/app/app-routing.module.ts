@@ -18,6 +18,9 @@ import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.componen
 import { UserMoviesComponent } from './pages/user/user-movies/user-movies.component';
 import { BookTicketsComponent } from './pages/user/book-tickets/book-tickets.component';
 import { BookSeatsComponent } from './pages/user/book-seats/book-seats.component';
+import { ExploreComponent } from './pages/user/explore/explore.component';
+import { CheckoutComponent } from './pages/user/checkout/checkout.component';
+import { MyBookingsComponent } from './pages/user/my-bookings/my-bookings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -75,15 +78,27 @@ const routes: Routes = [
         path: 'movies',
         component: UserMoviesComponent,
       },
+      {
+        path: 'explore',
+        component: ExploreComponent,
+      },
+      {
+        path: 'book',
+        component: BookTicketsComponent,
+      },
+      {
+        path: 'seats',
+        component: BookSeatsComponent,
+      },
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
+      },
+      {
+        path: 'my-bookings',
+        component: MyBookingsComponent,
+      },
     ],
-  },
-  {
-    path: 'book',
-    component: BookTicketsComponent,
-  },
-  {
-    path: 'seats',
-    component: BookSeatsComponent,
   },
 ];
 

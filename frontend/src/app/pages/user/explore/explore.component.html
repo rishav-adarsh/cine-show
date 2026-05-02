@@ -1,0 +1,46 @@
+<section class="listing-card fade-up">
+    <h1 class="section-title">Explore Movies</h1>
+    <p class="section-subtitle">Discover top-rated movies and jump directly to available shows.</p>
+
+    <div class="feature-strip" style="margin-bottom: 1rem;">
+        <div class="feature-badge">
+            <h4>{{ movies.length }}</h4>
+            <p>Titles available for booking</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>trending_up</mat-icon> Trending Picks</h4>
+            <p>Based on highest ratings in your catalog</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>local_activity</mat-icon> Genre Vibes</h4>
+            <p>Quick labels for browsing inspiration</p>
+        </div>
+    </div>
+
+    <div class="chip-row">
+        <span class="genre-chip" *ngFor="let genre of genreChips">{{ genre }}</span>
+    </div>
+
+    <div *ngIf="isLoading" class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let n of [1,2,3]"></div>
+    </div>
+
+    <div class="hero-carousel" *ngIf="!isLoading && featuredMovies.length">
+        <article class="hero-slide" *ngFor="let movie of featuredMovies; let i = index" [class.is-active]="i === activeSlideIndex">
+            <img [src]="movie.poster" alt="Featured movie poster" />
+            <div class="hero-slide-content">
+                <h3>{{ movie.movieName }}</h3>
+                <p>Rating {{ movie.rating }} / 10 • Duration {{ movie.duration }} mins</p>
+                <button mat-flat-button color="primary" class="app-btn" (click)="openMovie(movie)">
+                    Book This Movie
+                </button>
+            </div>
+        </article>
+        <div class="slide-dots">
+            <button type="button" *ngFor="let movie of featuredMovies; let i = index" [class.is-active]="i === activeSlideIndex"
+                (click)="activeSlideIndex = i"></button>
+        </div>
+    </div>
+
+    <p class="section-subtitle" *ngIf="!isLoading && !featuredMovies.length">No movies found to explore right now.</p>
+</section>

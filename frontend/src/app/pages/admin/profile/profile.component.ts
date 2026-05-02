@@ -9,9 +9,11 @@ import { LoginService } from 'src/app/services/login.service';
 export class ProfileComponent {
   activeUser: any = null;
   userRole?: string = '';
+  backLink: string = '/';
 
   constructor(private loginService: LoginService) {
     this.activeUser = loginService.getActiveUser();
     this.userRole = loginService.getActiveUserRole();
+    this.backLink = this.userRole === 'admin-role-csid' ? '/admin' : '/user';
   }
 }

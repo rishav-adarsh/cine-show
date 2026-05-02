@@ -1,21 +1,29 @@
-<mat-card>
-    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">All Theatres</h1>
-    <mat-list>
-        <mat-list-item *ngFor="let theatre of theatres" style="height: fit-content;">
-            <div style="display: inline-flex; margin: 1%; font-family: cursive;">
-                <mat-icon mat-list-icon>movie</mat-icon>
-                <div style="margin-left: 10px;">
-                    <div mat-line>
-                        <h4>{{ theatre.theatreName }}</h4>
-                    </div>
-                    <div mat-line>{{ theatre.location }}</div>
-                </div>
-                <mat-divider></mat-divider>
-            </div>
-        </mat-list-item>
-    </mat-list>
-
-    <div class="container text-center" style="margin: 20px;">
-        <button mat-raised-button color="accent" routerLink="/admin/add-theatre">Add New Theatre</button>
+<section class="listing-card fade-up">
+    <h1 class="section-title">All Theatres</h1>
+    <div class="filters-bar">
+        <mat-form-field appearance="outline">
+            <mat-label>Search theatre or location</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" placeholder="Eg: INOX, Mumbai..." />
+        </mat-form-field>
     </div>
-</mat-card>
+
+    <div *ngIf="isLoading" class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let n of [1,2,3]"></div>
+    </div>
+
+    <div class="listing-item" *ngFor="let theatre of filteredTheatres" [hidden]="isLoading">
+        <mat-icon>theaters</mat-icon>
+        <div style="flex: 1;">
+            <h4>{{ theatre.theatreName }}</h4>
+            <p class="section-subtitle">{{ theatre.location }}</p>
+        </div>
+        <button mat-stroked-button class="app-btn" (click)="setupSeats(theatre)">
+            <mat-icon>grid_on</mat-icon>
+            Setup Seats
+        </button>
+    </div>
+    <p class="section-subtitle" *ngIf="!isLoading && !filteredTheatres.length">No theatres found for this search.</p>
+    <div class="text-center">
+        <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/add-theatre">Add New Theatre</button>
+    </div>
+</section>

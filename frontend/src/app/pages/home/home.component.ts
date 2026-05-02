@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.loginService.getActiveUserRole() === 'ADMIN') {
+    if (this.loginService.getActiveUserRole() === 'admin-role-csid') {
       this.router.navigateByUrl('/admin');
-    } else if (this.loginService.getActiveUserRole() === 'NORMAL') {
+    } else if (this.loginService.getActiveUserRole() === 'default-role-csid') {
       this.router.navigateByUrl('/user');
     } else {
       this.loginService.logout();

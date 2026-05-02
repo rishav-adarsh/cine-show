@@ -19,6 +19,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
@@ -39,6 +42,12 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 import { ImgFallbackDirective } from './directives/img-fallback.directive';
 import { BookTicketsComponent } from './pages/user/book-tickets/book-tickets.component';
 import { BookSeatsComponent } from './pages/user/book-seats/book-seats.component';
+import { ExploreComponent } from './pages/user/explore/explore.component';
+import { CheckoutComponent } from './pages/user/checkout/checkout.component';
+import { MyBookingsComponent } from './pages/user/my-bookings/my-bookings.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -65,6 +74,9 @@ import { BookSeatsComponent } from './pages/user/book-seats/book-seats.component
     ImgFallbackDirective,
     BookTicketsComponent,
     BookSeatsComponent,
+    ExploreComponent,
+    CheckoutComponent,
+    MyBookingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,8 +96,14 @@ import { BookSeatsComponent } from './pages/user/book-seats/book-seats.component
     MatListModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    MatRadioModule,
+    MatChipsModule,
   ],
-  providers: [AuthInterceptorProviders],
+  providers: [...AuthInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,12 +1,6 @@
-<div class="bootstrap-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">
-                <app-user-sidebar></app-user-sidebar>
-            </div>
-            <div class="col-md-10">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
+<section class="dashboard-shell fade-up">
+    <app-user-sidebar></app-user-sidebar>
+    <div class="dashboard-main">
+        <router-outlet></router-outlet>
     </div>
-</div>
+</section>

@@ -7,7 +7,7 @@ export const userAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   if (
     loginService.isLoggedIn() &&
-    loginService.getActiveUserRole() === 'NORMAL'
+    loginService.getActiveUserRole() === 'default-role-csid'
   ) {
     return true;
   }

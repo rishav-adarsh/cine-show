@@ -1,0 +1,14 @@
+input[type="time"] {
+    color-scheme: dark;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+/* Adjusting the form layout for better spacing */
+.form-row {
+    margin-bottom: 0.5rem;
+}
+
+mat-form-field {
+    width: 100%;
+}

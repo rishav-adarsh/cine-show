@@ -49,23 +49,15 @@ export class LoginComponent {
           (user: any) => {
             this.loginService.setActiveUser(user);
             console.log('user: ', user);
-            if (this.loginService.getActiveUserRole() === 'ADMIN') {
-              this.router.navigateByUrl('/admin');
-              this.snackBar.open('Welcome BOSS !!', 'OK', {
-                duration: 3 * 1000,
-              });
-              // or window.location.href = "/admin"
-            } else if (this.loginService.getActiveUserRole() === 'NORMAL') {
-              this.router.navigateByUrl('/user');
-              this.snackBar.open(`Welcome ${user.username} !!`, 'OK', {
-                duration: 3 * 1000,
-              });
-            } else {
-              this.loginService.logout();
-              this.snackBar.open('User role not found!!', 'OK', {
-                duration: 3 * 1000,
-              });
-            }
+            
+            // Navigate to home page after successful login
+             this.router.navigateByUrl('/').then(() => {
+               window.location.reload();
+             });
+            
+            this.snackBar.open(`Welcome ${user.username} !!`, 'OK', {
+              duration: 3 * 1000,
+            });
           },
           (err: any) => {
             console.log('error: ', err);

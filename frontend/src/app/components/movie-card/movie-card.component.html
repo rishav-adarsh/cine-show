@@ -1,11 +1,11 @@
-<div class="shadow p-4 bg-white rounded border border-dark-subtle" style="margin-left: 7%;">
-    <img [src]="movieData.poster" class="img-thumbnail" />
-    <h4 class="fs-6 my-2">{{ movieData.movieName }}</h4>
-    Duration : {{ movieData.duration }} mins
-    <br />
-    Rating : {{ movieData.rating }} / 10
-    <br />
-    <button type="button" class="btn btn-primary" (click)="bookingNavigation()" style="margin: 2%; width: 90%">
-        Book Tickets
-    </button>
-</div>
+<article class="movie-card">
+    <img [src]="movieData.poster" class="movie-poster" alt="Movie poster" />
+    <h4 class="movie-title">{{ movieData.movieName }}</h4>
+    <div class="movie-footer">
+        <p class="movie-meta">Duration: {{ movieData.duration }} mins</p>
+        <p class="movie-meta">Rating: {{ movieData.rating }} / 10</p>
+        <button type="button" mat-flat-button color="primary" class="app-btn movie-btn" (click)="bookingNavigation()">
+            Book Tickets
+        </button>
+    </div>
+</article>

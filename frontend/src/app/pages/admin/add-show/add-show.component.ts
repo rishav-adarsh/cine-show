@@ -12,8 +12,10 @@ import Swal from 'sweetalert2';
 })
 export class AddShowComponent implements OnInit {
   show: any = {
-    startTime: '',
-    endTime: '',
+    startTime: null,
+    startTimeTime: '10:00',
+    endTime: null,
+    endTimeTime: '13:00',
     ticketPrice: 0,
     movie: {
       movieId: -1,
@@ -58,16 +60,36 @@ export class AddShowComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.show.startTime || !this.show.endTime) {
+    if (!this.show.startTime || !this.show.endTime || !this.show.startTimeTime || !this.show.endTimeTime) {
       this.snackBar.open('All fields are Required!!', 'OK', {
         duration: 3000,
       });
       return;
     }
 
-    this.showService.addShow(this.show).subscribe(
+    // Combine date and time
+    const combineDateTime = (date: Date, timeStr: string) => {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      const combined = new Date(date);
+      combined.setHours(hours, minutes, 0, 0);
+      return combined.toISOString(); // Backend expects ISO string or similar for LocalDateTime
+    };
+
+    const startTimeIso = combineDateTime(this.show.startTime, this.show.startTimeTime);
+    const endTimeIso = combineDateTime(this.show.endTime, this.show.endTimeTime);
+
+    // Flatten the show object to match backend DTO
+    const showData = {
+      startTime: startTimeIso,
+      endTime: endTimeIso,
+      ticketPrice: this.show.ticketPrice,
+      movieId: this.show.movie.movieId,
+      theatreId: this.show.theatre.theatreId
+    };
+
+    this.showService.addShow(showData).subscribe(
       (data: any) => {
-        this.show.startTime = this.show.endTime = '';
+        this.show.startTime = this.show.endTime = null;
         Swal.fire('Success :)', 'Show added successfully!!', 'success');
       },
       (err: any) => {

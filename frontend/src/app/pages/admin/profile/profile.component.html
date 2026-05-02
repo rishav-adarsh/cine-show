@@ -1,49 +1,93 @@
-<mat-card>
-    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Your Profile</h1>
-    <mat-card-content>
-        <div class="bootstrap-wrapper" style="font-family: cursive;">
-            <div class="container">
-                <div class="container text-center">
-                    <img class="profile-image"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-5cZ42du3jN_0TMInbAdcVVn7tHgs0zkwA&usqp=CAU"
-                        alt="" />
+<section class="listing-card fade-up">
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="image-wrapper">
+                <img class="profile-image"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-5cZ42du3jN_0TMInbAdcVVn7tHgs0zkwA&usqp=CAU"
+                    alt="Profile image" />
+            </div>
+            <div class="user-name-group">
+                <h2 class="user-full-name">{{activeUser.firstName}} {{activeUser.lastName}}</h2>
+                <span class="user-role-badge">{{userRole}}</span>
+            </div>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>alternate_email</mat-icon>
                 </div>
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <h2 style="text-align: center;">{{activeUser.firstName}} {{activeUser.lastName}}</h2>
-                        <table class="table">
-                            <tr>
-                                <td><b>Username</b></td>
-                                <td>{{activeUser.username}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>UserId</b></td>
-                                <td>{{activeUser.id}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Role</b></td>
-                                <td>{{userRole}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Phone</b></td>
-                                <td>{{activeUser.phone}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Email</b></td>
-                                <td>{{activeUser.email}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Active</b></td>
-                                <td>{{activeUser.enabled}}</td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="info-content">
+                    <span class="info-label">Username</span>
+                    <span class="info-value">{{activeUser.username}}</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>fingerprint</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value">{{activeUser.id}}</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>mail</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value">{{activeUser.email}}</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>phone</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Phone Number</span>
+                    <span class="info-value">{{activeUser.phone}}</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>verified_user</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Account Status</span>
+                    <span class="info-value" [ngClass]="activeUser.enabled ? 'status-active' : 'status-inactive'">
+                        {{activeUser.enabled ? 'Active' : 'Inactive'}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>security</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">{{userRole}}</span>
                 </div>
             </div>
         </div>
-    </mat-card-content>
-    <mat-card-actions class="text-center" style="justify-content: center;">
-        <button mat-raised-button color="primary" style="margin: 2%;">Update</button>
-        <button mat-raised-button color="accent">Share</button>
-    </mat-card-actions>
-</mat-card>
+
+        <!-- Actions -->
+        <div class="profile-actions">
+            <button mat-flat-button color="primary" class="action-btn">
+                <mat-icon style="margin-right: 8px;">edit</mat-icon>
+                Update Profile
+            </button>
+            <button mat-stroked-button class="action-btn">
+                <mat-icon style="margin-right: 8px;">share</mat-icon>
+                Share Profile
+            </button>
+        </div>
+    </div>
+</section>

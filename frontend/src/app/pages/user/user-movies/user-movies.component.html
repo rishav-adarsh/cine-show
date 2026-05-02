@@ -1,5 +1,56 @@
-<div class="row">
-    <div *ngFor="let movie of movies" class="col-md-3 my-3" style="width: 30%;">
-        <app-movie-card [movieData]="movie"></app-movie-card>
+<section class="listing-card fade-up">
+    <h1 class="section-title">Now Showing</h1>
+    <p class="section-subtitle">Choose your movie and continue to available shows.</p>
+    <div class="feature-strip" style="margin-bottom: 1rem;">
+        <div class="feature-badge">
+            <h4>{{ filteredMovies.length || 0 }}</h4>
+            <p>Movies live right now</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>star_rate</mat-icon> Curated</h4>
+            <p>Handpicked new and trending titles</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>schedule</mat-icon> Flexible</h4>
+            <p>Book by your preferred show timings</p>
+        </div>
     </div>
-</div>
+
+    <div class="filters-bar">
+        <mat-form-field appearance="outline">
+            <mat-label>Search movie</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" placeholder="Eg: Dune, Batman..." />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Minimum rating</mat-label>
+            <mat-select [(ngModel)]="minRating" (selectionChange)="applyFilters()">
+                <mat-option [value]="0">All</mat-option>
+                <mat-option [value]="6">6+</mat-option>
+                <mat-option [value]="7">7+</mat-option>
+                <mat-option [value]="8">8+</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Sort by</mat-label>
+            <mat-select [(ngModel)]="sortKey" (selectionChange)="applyFilters()">
+                <mat-option value="name">Name (A-Z)</mat-option>
+                <mat-option value="rating">Rating (High-Low)</mat-option>
+                <mat-option value="duration">Duration (Short-Long)</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="isLoading" class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let n of [1,2,3,4]"></div>
+    </div>
+
+    <div class="app-grid" *ngIf="!isLoading && filteredMovies.length">
+        <div *ngFor="let movie of filteredMovies">
+            <app-movie-card [movieData]="movie"></app-movie-card>
+        </div>
+    </div>
+
+    <p class="section-subtitle" *ngIf="!isLoading && !filteredMovies.length">No movies match your filters.</p>
+</section>

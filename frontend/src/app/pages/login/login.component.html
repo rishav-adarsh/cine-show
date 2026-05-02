@@ -1,23 +1,26 @@
-<div class="text-center">
-    <img style="width: 8%; margin: 1%" src="../../../assets/login.png" alt="No Image" />
-    <h1 style="font-family: cursive">Login Here</h1>
+<section class="auth-shell glass-card fade-up">
+    <img class="auth-logo" src="https://img.icons8.com/fluency/96/movie-projector.png" alt="Movie projector logo" />
+    <h1 class="auth-title">Welcome Back</h1>
+    <p class="auth-subtitle">Sign in to continue booking your favorite shows in seconds.</p>
+
     <form (ngSubmit)="onLogin()">
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Username</mat-label>
             <input matInput required [(ngModel)]="loginUser.username" name="username" placeholder="Username" />
-        </mat-form-field><br>
+        </mat-form-field>
 
         <mat-form-field class="form-input" appearance="outline">
-            <mat-label>Enter your password</mat-label>
-            <input matInput required [(ngModel)]="loginUser.password" name="password"
-                [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            <mat-label>Password</mat-label>
+            <input matInput required [(ngModel)]="loginUser.password" name="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-        </mat-form-field><br>
+        </mat-form-field>
 
-        <button type="submit" mat-raised-button color="primary">Login</button>
-        <button type="reset" style="margin: 2%;" mat-raised-button color="accent">Reset</button>
+        <div class="auth-actions">
+            <button type="submit" mat-flat-button color="primary" class="app-btn">Login</button>
+            <button type="reset" mat-stroked-button class="app-btn">Reset</button>
+        </div>
     </form>
-</div>
+</section>

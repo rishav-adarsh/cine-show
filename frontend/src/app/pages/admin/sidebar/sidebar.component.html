@@ -1,14 +1,12 @@
-<mat-card>
+<aside class="side-menu">
+    <span class="side-menu-title">Admin Panel</span>
     <mat-action-list role="list">
-        <div mat-subheader>Menu</div>
-        <button mat-list-item routerLink="/admin"><mat-icon mat-list-icon>home</mat-icon>Home</button>
-        <button mat-list-item routerLink="/admin/profile"><mat-icon
-                mat-list-icon>account_circle</mat-icon>Profile</button>
-        <button mat-list-item routerLink="/admin/movies"><mat-icon mat-list-icon>movies</mat-icon>Movies</button>
-        <button mat-list-item routerLink="/admin/add-movie"><mat-icon mat-list-icon>add_circle_outline</mat-icon>Add
-            Movie</button>
-        <button mat-list-item routerLink="/admin/theatres"><mat-icon mat-list-icon>house</mat-icon>Theatres</button>
-        <button mat-list-item routerLink="/admin/add-theatre"><mat-icon mat-list-icon>add</mat-icon>Add Theatre</button>
-        <button mat-list-item routerLink="/admin/add-show"><mat-icon mat-list-icon>add_circle</mat-icon>Add Show</button>
+        <button mat-list-item class="side-link" routerLink="/admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><mat-icon mat-list-icon>space_dashboard</mat-icon>Dashboard</button>
+        <button mat-list-item class="side-link" routerLink="/admin/profile" routerLinkActive="active-link"><mat-icon mat-list-icon>person</mat-icon>Profile</button>
+        <button mat-list-item class="side-link" routerLink="/admin/movies" routerLinkActive="active-link"><mat-icon mat-list-icon>local_movies</mat-icon>Movies</button>
+        <button mat-list-item class="side-link" routerLink="/admin/add-movie" routerLinkActive="active-link"><mat-icon mat-list-icon>add_circle</mat-icon>Add Movie</button>
+        <button mat-list-item class="side-link" routerLink="/admin/theatres" routerLinkActive="active-link"><mat-icon mat-list-icon>theaters</mat-icon>Theatres</button>
+        <button mat-list-item class="side-link" routerLink="/admin/add-theatre" routerLinkActive="active-link"><mat-icon mat-list-icon>apartment</mat-icon>Add Theatre</button>
+        <button mat-list-item class="side-link" routerLink="/admin/add-show" routerLinkActive="active-link"><mat-icon mat-list-icon>event_available</mat-icon>Add Show</button>
     </mat-action-list>
-</mat-card>
+</aside>

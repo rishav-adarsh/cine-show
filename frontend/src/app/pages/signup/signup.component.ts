@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -14,7 +15,8 @@ export class SignupComponent {
 
   constructor(
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   signupForm = new FormGroup(
@@ -47,7 +49,9 @@ export class SignupComponent {
           'SignUp Successful !!', // Heading
           `A new user, ${username} is created !!`, // Sub Heading
           'success' // Message Type
-        );
+        ).then(() => {
+          this.router.navigate(['/login']);
+        });
       },
       (err: any) => {
         // alert('SignUp Failed!!');

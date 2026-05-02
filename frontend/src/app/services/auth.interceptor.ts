@@ -15,15 +15,17 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private loginService: LoginService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // adding jwtToken to every requests' header:
-    console.log("http req..");
-    
     let authReq = request;
-    let token = this.loginService.getJwtToken();
-    if (token != null) {
+    const token = this.loginService.getJwtToken();
+    console.log("AuthInterceptor: intercepting request to", request.url);
+    
+    if (token && token !== 'undefined' && token !== 'null') {
+      console.log("AuthInterceptor: adding token to header");
       authReq = authReq.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });
+    } else {
+      console.log("AuthInterceptor: no valid token found");
     }
     return next.handle(authReq);
   }

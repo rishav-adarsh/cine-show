@@ -1,30 +1,81 @@
-<h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Book seats for {{ show.movie.movieName }}</h1>
-<div class="body">
-    <div class="screen"></div>
-    
-    <div *ngFor="let row of show.isSeatBooked; let r = index">
-        <div class="row" *ngFor="let seat of row; let c = index">
-            <div 
-            [className]="seat ? 'seat occupied' : isSeatBooked[r][c] ? 'seat selected' : 'seat'"
-            (click)="selectSeat(r, c)"
-            ></div>
-        </div><br />
+<section class="seat-layout-container fade-up">
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="!show && !errorMessage">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading cinematic seating map...</p>
     </div>
 
-    <div class="seat-types">
-        <div class="seat"></div>
-        <small>N/A</small>
-        <div class="seat selected"></div>
-        <small>Selected</small>
-        <div class="seat occupied"></div>
-        <small>Occupied</small>
+    <!-- Error State -->
+    <div class="error-state" *ngIf="errorMessage">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <p>{{ errorMessage }}</p>
+        <button mat-flat-button color="primary" routerLink="/user/book">Return to Shows</button>
     </div>
 
+    <ng-container *ngIf="show">
+        <div class="header-glass">
+            <button mat-icon-button color="primary" [routerLink]="['/user/book']" [queryParams]="{ movieId: show.movie.movieId }" title="Back to Shows">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div class="movie-info-header">
+                <h1 class="movie-title-text">{{ show.movie.movieName || show.movie.name }}</h1>
+                <p class="theatre-info-text">{{ show.theatre.theatreName || show.theatre.name }} | {{ show.startTime | date:'shortTime' }}</p>
+            </div>
+        </div>
 
-    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-            <h3 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">{{ selectedSeatsCount }} seats selected for
-                Rs. {{ selectedSeatsCount*show.ticketPrice }}</h3>
-        <button style="margin: 3%;" type="button" class="btn btn-primary" (click)="bookMySeats()">BOOK MY SEATS</button>
-    </div>
+        <div class="screen-container">
+            <div class="screen-glow"></div>
+            <div class="screen-surface"></div>
+            <p class="screen-text">SCREEN THIS WAY</p>
+        </div>
 
-</div>
+        <div class="seating-area">
+            <div *ngFor="let row of seatRows; let i = index" class="seat-row">
+                <span class="row-label">{{ row[0]?.seatNumber.charAt(0) }}</span>
+                <div class="seat-row-inner">
+                    <div *ngFor="let seat of row" 
+                         [className]="isSeatOccupied(seat.csid) ? 'seat-item occupied' : isSeatSelected(seat.csid) ? 'seat-item selected' : 'seat-item available'"
+                         (click)="selectSeat(seat)" 
+                         [title]="seat.seatNumber">
+                        <mat-icon *ngIf="isSeatOccupied(seat.csid)">block</mat-icon>
+                        <mat-icon *ngIf="isSeatSelected(seat.csid)">check_circle</mat-icon>
+                        <span class="seat-num" *ngIf="!isSeatOccupied(seat.csid) && !isSeatSelected(seat.csid)">{{ seat.seatNumber.substring(1) }}</span>
+                    </div>
+                </div>
+                <span class="row-label">{{ row[0]?.seatNumber.charAt(0) }}</span>
+            </div>
+        </div>
+
+        <div class="legend-container">
+            <div class="legend-item">
+                <div class="seat-item available small"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-item selected small"><mat-icon>check_circle</mat-icon></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-item occupied small"><mat-icon>block</mat-icon></div>
+                <span>Booked</span>
+            </div>
+        </div>
+
+        <div class="checkout-footer" *ngIf="selectedSeatsCount > 0">
+            <div class="booking-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Selected Seats</span>
+                    <span class="summary-value">{{ selectedSeatNumbers.join(', ') }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total Amount</span>
+                    <span class="summary-value highlight">₹{{ selectedSeatsCount * show.ticketPrice }}</span>
+                </div>
+            </div>
+            <button type="button" mat-flat-button color="primary" class="app-btn confirm-btn" (click)="bookMySeats()">
+                Confirm Booking
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </ng-container>
+</section>
