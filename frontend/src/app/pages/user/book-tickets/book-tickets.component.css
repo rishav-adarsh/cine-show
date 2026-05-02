@@ -1,4 +1,179 @@
-.body {
+.filters-bar {
     display: flex;
-    /* flex-direction: row; */
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(15, 31, 62, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    margin-bottom: 2rem;
+}
+
+.filters-bar mat-form-field {
+    flex: 1;
+}
+
+.show-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.compact-ticket {
+    background: rgba(15, 31, 62, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 200ms ease;
+}
+
+.compact-ticket:hover {
+    background: rgba(15, 31, 62, 0.7);
+    border-color: var(--app-primary);
+    transform: translateX(4px);
+}
+
+.ticket-main-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.theatre-icon-small {
+    background: rgba(106, 141, 255, 0.1);
+    color: var(--app-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.theatre-meta {
+    min-width: 0;
+    flex: 1;
+}
+
+.theatre-name-text {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e7edf8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.location-text {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.location-text mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.ticket-details-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+}
+
+.time-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #61d6c2;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: rgba(97, 214, 194, 0.1);
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.time-chip mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.price-pill {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    flex-shrink: 0;
+}
+
+.price-pill .currency {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.price-pill .amount {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #e7edf8;
+}
+
+.seats-left {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.seats-left mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #61d6c2;
+}
+
+.seats-left.warning mat-icon {
+    color: #ff8a80;
+}
+
+.mini-book-btn {
+    border-radius: 10px !important;
+    height: 40px !important;
+    padding: 0 1.5rem !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .compact-ticket {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+    .ticket-details-row {
+        justify-content: space-between;
+        margin: 0.5rem 0;
+    }
 }

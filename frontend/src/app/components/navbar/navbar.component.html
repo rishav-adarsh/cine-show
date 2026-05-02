@@ -1,17 +1,53 @@
-<div>
-    <mat-toolbar color="primary">
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
+<mat-toolbar class="app-toolbar">
+    <div class="brand-group" routerLink="/">
+        <mat-icon class="brand-icon">local_movies</mat-icon>
+        <span class="brand-text">CineShow</span>
+    </div>
+    <span class="example-spacer"></span>
+    <div *ngIf="!this.loginService.isLoggedIn(); else logout">
+        <button routerLink="/login" mat-stroked-button class="app-btn nav-btn nav-btn-ghost">
+            <mat-icon>login</mat-icon>
+            Login
         </button>
-        <span>QuizBuzz</span>
-        <span class="example-spacer"></span>
-        <div *ngIf="!this.loginService.isLoggedIn(); else logout">
-            <button routerLink="/login" mat-raised-button color="accent">Login</button>
-            <button routerLink="/signup" mat-raised-button color="warn">Signup</button>
-        </div>
-        <ng-template #logout>
-            <!-- {{this.activeUser.username}} -->
-            <button routerLink="/" mat-raised-button color="warn" (click)="logoutUser()">Logout</button>
-        </ng-template>
-    </mat-toolbar>
-</div>
+        <button routerLink="/signup" mat-flat-button color="primary" class="app-btn nav-btn">
+            <mat-icon>person_add</mat-icon>
+            Signup
+        </button>
+    </div>
+    <ng-template #logout>
+        <button mat-stroked-button class="app-btn nav-btn nav-btn-ghost" routerLink="/user/explore">
+            <mat-icon>explore</mat-icon>
+            Explore
+        </button>
+
+        <details class="account-menu">
+            <summary>
+                <span class="avatar-chip">{{ (activeUser?.firstName || activeUser?.username || 'U').charAt(0) | uppercase }}</span>
+                <span class="account-name">{{ activeUser?.firstName || activeUser?.username || 'Account' }}</span>
+                <mat-icon>expand_more</mat-icon>
+            </summary>
+            <div class="account-menu-panel">
+                <a routerLink="/user/profile" *ngIf="loginService.getActiveUserRole() === 'default-role-csid'">
+                    <mat-icon>person</mat-icon>
+                    Profile
+                </a>
+                <a routerLink="/admin/profile" *ngIf="loginService.getActiveUserRole() === 'admin-role-csid'">
+                    <mat-icon>shield_person</mat-icon>
+                    Profile
+                </a>
+                <a routerLink="/user/explore" *ngIf="loginService.getActiveUserRole() === 'default-role-csid'">
+                    <mat-icon>movie_filter</mat-icon>
+                    Explore Movies
+                </a>
+                <a routerLink="/admin" *ngIf="loginService.getActiveUserRole() === 'admin-role-csid'">
+                    <mat-icon>dashboard</mat-icon>
+                    Admin Home
+                </a>
+                <button type="button" (click)="logoutUser()">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </div>
+        </details>
+    </ng-template>
+</mat-toolbar>

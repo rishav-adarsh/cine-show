@@ -1,16 +1,60 @@
-<h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Shows for {{ shows[0].movie.movieName }}</h1>
-<div class="body" style="display: flex; flex-wrap: wrap;">
-    <div *ngFor="let show of shows">
-        <div class="card" style="width: 250px; height: 200px; margin: 20px;">
-            <div class="card-body">
-                <h5 class="card-title">{{ show.theatre.theatreName }}, {{ show.theatre.location }}</h5> <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <h6 class="card-subtitle mb-2 text-muted">{{ show.startTime }} to {{ show.endTime }}</h6>
-                <p>
-                    Price: Rs. {{ show.ticketPrice }} / Person
-                    <br />Seats left: {{ 100 }}
-                </p>
-                <button type="button" class="btn btn-primary" (click)="seatsNavigation(show)">Book Seats</button>
-            </div>
-        </div>
+<section class="listing-card fade-up">
+    <div class="page-header" *ngIf="movieId">
+        <button mat-icon-button routerLink="/user/movies" title="Back to Movies">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 class="section-title">Shows for {{ shows.length ? shows[0].movie.movieName : 'Selected Movie' }}</h1>
     </div>
-</div>
+    <h1 class="section-title" *ngIf="!movieId">All Available Shows</h1>
+    <p class="section-subtitle">Pick a theatre and time slot to continue seat selection.</p>
+
+    <div class="filters-bar" *ngIf="shows.length">
+        <mat-form-field appearance="outline">
+            <mat-label>Search theatre</mat-label>
+            <input matInput [(ngModel)]="theatreQuery" (ngModelChange)="applyFilters()" placeholder="Search by theatre or location" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Max budget</mat-label>
+            <input matInput type="number" [(ngModel)]="maxPrice" (ngModelChange)="applyFilters()" />
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="isLoading" class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let n of [1,2,3]"></div>
+    </div>
+
+    <div class="show-grid" *ngIf="!isLoading">
+        <article *ngFor="let show of filteredShows" class="compact-ticket fade-up">
+            <div class="ticket-main-info">
+                <mat-icon class="theatre-icon-small">theater_comedy</mat-icon>
+                <div class="theatre-meta">
+                    <h3 class="theatre-name-text">{{ show?.theatre?.name || show?.theatre?.theatreName || 'Unknown Theatre' }}</h3>
+                    <p class="location-text"><mat-icon>location_on</mat-icon> {{ show?.theatre?.location || 'Location N/A' }}</p>
+                </div>
+            </div>
+            
+            <div class="ticket-details-row">
+                <div class="time-chip">
+                    <mat-icon>schedule</mat-icon>
+                    <span>{{ show?.startTime ? (show.startTime | date:'shortTime') : 'TBD' }}</span>
+                </div>
+                
+                <div class="price-pill">
+                    <span class="currency">₹</span>
+                    <span class="amount">{{ show?.ticketPrice || 0 }}</span>
+                </div>
+
+                <div class="seats-left" [class.warning]="(show?.bookedSeatIds?.length || 0) > 80">
+                    <mat-icon>event_seat</mat-icon>
+                    <span>{{ 100 - (show?.bookedSeatIds?.length || 0) }} left</span>
+                </div>
+            </div>
+
+            <button type="button" mat-flat-button color="primary" class="mini-book-btn" (click)="seatsNavigation(show)">
+                Book Now
+            </button>
+        </article>
+    </div>
+
+    <p class="section-subtitle" *ngIf="!isLoading && shows.length && !filteredShows.length">No shows match your current filters.</p>
+</section>

@@ -1,43 +1,49 @@
-<div class="text-center">
-    <img style="width: 8%; margin: 1%" src="../../../assets/signup.png" alt="No Image" />
-    <h1 style="font-family: cursive">Register Here</h1>
+<section class="auth-shell glass-card fade-up">
+    <img class="auth-logo" src="https://img.icons8.com/fluency/96/ticket.png" alt="Ticket logo" />
+    <h1 class="auth-title">Create Your Account</h1>
+    <p class="auth-subtitle">Join CineShow for faster seat booking and smoother movie nights.</p>
+
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Username</mat-label>
             <input formControlName="username" matInput placeholder="Username" />
             <mat-hint>Username must be unique</mat-hint>
-        </mat-form-field><br>
+        </mat-form-field>
 
         <mat-form-field class="form-input" appearance="outline">
-            <mat-label>Enter your password</mat-label>
+            <mat-label>Password</mat-label>
             <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-        </mat-form-field><br>
+        </mat-form-field>
 
-        <mat-form-field class="form-input" appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input formControlName="firstName" matInput placeholder="First Name" />
-        </mat-form-field><br>
+        <div class="form-row">
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input formControlName="firstName" matInput placeholder="First Name" />
+            </mat-form-field>
 
-        <mat-form-field class="form-input" appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input formControlName="lastName" matInput placeholder="LastName" />
-        </mat-form-field><br>
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input formControlName="lastName" matInput placeholder="Last Name" />
+            </mat-form-field>
+        </div>
 
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Email</mat-label>
             <input formControlName="email" matInput placeholder="Email" />
-        </mat-form-field><br>
+        </mat-form-field>
 
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Phone</mat-label>
             <input formControlName="phone" matInput placeholder="Phone" />
-        </mat-form-field><br>
+        </mat-form-field>
 
-        <button type="submit" mat-raised-button color="primary">Signup</button>
-        <button type="reset" style="margin: 2%;" mat-raised-button color="accent">Reset</button>
+        <div class="auth-actions">
+            <button type="submit" mat-flat-button color="primary" class="app-btn">Signup</button>
+            <button type="reset" mat-stroked-button class="app-btn">Reset</button>
+        </div>
     </form>
-</div>
+</section>

@@ -1,43 +1,28 @@
-<mat-card>
-    <h1 style="margin: 3%; font-family: Verdana, Geneva, Tahoma, sans-serif;">Add Movie</h1>
-    <mat-card-content>
-        <div class="bootstrap-wrapper">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <form (ngSubmit)="onSubmit()">
-                        <mat-form-field style="width: 100%;" appearance="outline">
-                            <mat-label>MovieName</mat-label>
-                            <input matInput type="text" name="title" placeholder="Enter Movie Name"
-                                [(ngModel)]="movie.movieName" required autofocus>
-                        </mat-form-field>
-                        <mat-form-field style="width: 100%;" appearance="outline">
-                            <mat-label>Poster Image</mat-label>
-                            <input matInput type="text" name="poster" placeholder="Enter Image Link" [(ngModel)]="movie.poster" required
-                                autofocus>
-                        </mat-form-field>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <mat-form-field style="width: 100%;" appearance="outline">
-                                    <mat-label>Duration</mat-label>
-                                    <input [(ngModel)]="movie.duration" matInput type="text" name="duration"
-                                        placeholder="Enter Movie Duration" required autofocus>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-6">
-                                <mat-form-field style="width: 100%;" appearance="outline">
-                                    <mat-label>Release Date</mat-label>
-                                    <input [(ngModel)]="movie.releaseDate" matInput type="text" name="releaseDate" placeholder="Enter Release Date"
-                                        required autofocus>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<section class="listing-card fade-up">
+    <h1 class="section-title">Add Movie</h1>
+    <form (ngSubmit)="onSubmit()" class="stack-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Movie Name</mat-label>
+            <input matInput type="text" name="title" placeholder="Enter movie name" [(ngModel)]="movie.movieName" required autofocus>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Poster Image URL</mat-label>
+            <input matInput type="text" name="poster" placeholder="Enter poster image link" [(ngModel)]="movie.poster" required autofocus>
+        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Duration</mat-label>
+                <input [(ngModel)]="movie.duration" matInput type="text" name="duration" placeholder="Movie duration in minutes" required autofocus>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Release Date</mat-label>
+                <input [(ngModel)]="movie.releaseDate" matInput [matDatepicker]="releasePicker" name="releaseDate" placeholder="Select release date" required>
+                <mat-datepicker-toggle matSuffix [for]="releasePicker"></mat-datepicker-toggle>
+                <mat-datepicker #releasePicker></mat-datepicker>
+            </mat-form-field>
         </div>
-    </mat-card-content>
-
-    <div class="container text-center" style="margin: 20px;">
-        <button mat-raised-button color="accent" (click)="onSubmit()">Add Movie</button>
+    </form>
+    <div class="text-center">
+        <button mat-flat-button color="primary" class="app-btn" (click)="onSubmit()">Add Movie</button>
     </div>
-</mat-card>
+</section>

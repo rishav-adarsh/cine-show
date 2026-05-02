@@ -1,1 +1,35 @@
-<p>admin-home works!</p>
+<section class="hero-card">
+    <h1 class="hero-title">Admin Command Center</h1>
+    <p class="hero-subtitle">Manage movies, theatres, and live show schedules from one clean dashboard.</p>
+    <div class="feature-strip">
+        <div class="feature-badge">
+            <h4><mat-icon>insights</mat-icon> Operations</h4>
+            <p>Keep your catalog and theatre mapping updated daily.</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>speed</mat-icon> Quick Actions</h4>
+            <p>Add movies, theatres and shows from one control panel.</p>
+        </div>
+        <div class="feature-badge">
+            <h4><mat-icon>verified</mat-icon> Reliable Data</h4>
+            <p>Use backend-integrated forms with existing APIs.</p>
+        </div>
+    </div>
+    <div class="app-grid">
+        <div class="content-card">
+            <h3>Movies</h3>
+            <p class="hero-subtitle">Review your current catalog and add new releases quickly.</p>
+            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/movies">Manage Movies</button>
+        </div>
+        <div class="content-card">
+            <h3>Theatres</h3>
+            <p class="hero-subtitle">Maintain venues, seating plans, and city presence.</p>
+            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/theatres">Manage Theatres</button>
+        </div>
+        <div class="content-card">
+            <h3>Shows</h3>
+            <p class="hero-subtitle">Schedule timings and ticket prices with optimized workflows.</p>
+            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/add-show">Create Show</button>
+        </div>
+    </div>
+</section>

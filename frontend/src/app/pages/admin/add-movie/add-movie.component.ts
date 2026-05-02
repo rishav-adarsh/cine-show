@@ -27,16 +27,26 @@ export class AddMovieComponent {
       return;
     }
 
-    this.movieService.addMovie(this.movie).subscribe(
+    // Convert Date object to YYYY-MM-DD string for backend LocalDate
+    const movieData = { ...this.movie };
+    if (movieData.releaseDate instanceof Date) {
+      movieData.releaseDate = movieData.releaseDate.toISOString().split('T')[0];
+    }
+
+    this.movieService.addMovie(movieData).subscribe(
       (data: any) => {
-        this.movie.movieName = this.movie.releaseDate = this.movie.poster = '';
-        this.movie.duration = 0;
+        this.movie = {
+          movieName: '',
+          releaseDate: '',
+          duration: 0,
+          poster: '',
+        };
         Swal.fire('Success :)', 'Movie added successfully!!', 'success');
       },
       (err: any) => {
-        Swal.fire('Error :(', 'Server Error !!', 'error');  
+        Swal.fire('Error :(', 'Server Error !!', 'error');
       }
-    )
+    );
   }
 
 }
