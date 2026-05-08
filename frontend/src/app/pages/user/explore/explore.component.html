@@ -27,18 +27,52 @@
 
     <div class="hero-carousel" *ngIf="!isLoading && featuredMovies.length">
         <article class="hero-slide" *ngFor="let movie of featuredMovies; let i = index" [class.is-active]="i === activeSlideIndex">
-            <img [src]="movie.poster" alt="Featured movie poster" />
-            <div class="hero-slide-content">
-                <h3>{{ movie.movieName }}</h3>
-                <p>Rating {{ movie.rating }} / 10 • Duration {{ movie.duration }} mins</p>
-                <button mat-flat-button color="primary" class="app-btn" (click)="openMovie(movie)">
-                    Book This Movie
-                </button>
+            <div class="hero-bg-wrapper">
+                <img [src]="movie.poster" class="hero-bg-image" alt="" />
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="hero-content-wrapper">
+                <div class="hero-poster-box">
+                    <img [src]="movie.poster" class="hero-main-poster" [alt]="movie.movieName" />
+                </div>
+                <div class="hero-text-content">
+                    <span class="trending-tag">#{{ i + 1 }} Trending Movie</span>
+                    <h2 class="hero-movie-title">{{ movie.movieName }}</h2>
+                    <div class="hero-meta">
+                        <span class="rating-box"><mat-icon>star</mat-icon> {{ movie.rating }}</span>
+                        <span class="meta-dot"></span>
+                        <span>{{ movie.genre || 'Action & Adventure' }}</span>
+                        <span class="meta-dot"></span>
+                        <span>{{ movie.duration }} mins</span>
+                    </div>
+                    <p class="hero-description">{{ movie.description | slice:0:160 }}{{ movie.description?.length > 160 ? '...' : '' }}</p>
+                    <div class="hero-actions">
+                        <button mat-flat-button color="primary" class="app-btn hero-book-btn" (click)="openMovie(movie)">
+                            <mat-icon>local_activity</mat-icon> Book Now
+                        </button>
+                        <button mat-stroked-button class="app-btn hero-details-btn">
+                            View Details
+                        </button>
+                    </div>
+                </div>
             </div>
         </article>
+
+        <div class="carousel-nav">
+            <button class="nav-btn prev" (click)="prevSlide()" aria-label="Previous slide">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button class="nav-btn next" (click)="nextSlide()" aria-label="Next slide">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+
         <div class="slide-dots">
-            <button type="button" *ngFor="let movie of featuredMovies; let i = index" [class.is-active]="i === activeSlideIndex"
-                (click)="activeSlideIndex = i"></button>
+            <button type="button" *ngFor="let movie of featuredMovies; let i = index" 
+                [class.is-active]="i === activeSlideIndex"
+                (click)="activeSlideIndex = i"
+                [title]="movie.movieName"></button>
         </div>
     </div>
 

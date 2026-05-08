@@ -51,8 +51,26 @@ export class ExploreComponent implements OnInit, OnDestroy {
       return;
     }
     this.intervalId = setInterval(() => {
-      this.activeSlideIndex = (this.activeSlideIndex + 1) % this.featuredMovies.length;
-    }, 3500);
+      this.nextSlide();
+    }, 5000);
+  }
+
+  nextSlide() {
+    this.activeSlideIndex = (this.activeSlideIndex + 1) % this.featuredMovies.length;
+    this.resetTimer();
+  }
+
+  prevSlide() {
+    this.activeSlideIndex = (this.activeSlideIndex - 1 + this.featuredMovies.length) % this.featuredMovies.length;
+    this.resetTimer();
+  }
+
+  private resetTimer() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+      this.startSlider();
+    }
   }
 
   openMovie(movie: any) {
