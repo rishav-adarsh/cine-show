@@ -20,9 +20,12 @@
             Explore
         </button>
 
-        <details class="account-menu">
+        <details class="account-menu" #accountMenu>
             <summary>
-                <span class="avatar-chip">{{ (activeUser?.firstName || activeUser?.username || 'U').charAt(0) | uppercase }}</span>
+                <div class="avatar-container">
+                    <img *ngIf="activeUser?.profileImageUrl" [src]="activeUser.profileImageUrl" class="avatar-img" alt="Avatar">
+                    <span *ngIf="!activeUser?.profileImageUrl" class="avatar-chip">{{ (activeUser?.firstName || activeUser?.username || 'U').charAt(0) | uppercase }}</span>
+                </div>
                 <span class="account-name">{{ activeUser?.firstName || activeUser?.username || 'Account' }}</span>
                 <mat-icon>expand_more</mat-icon>
             </summary>

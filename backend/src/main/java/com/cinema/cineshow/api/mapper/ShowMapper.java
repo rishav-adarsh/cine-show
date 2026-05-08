@@ -4,6 +4,7 @@ import com.cinema.cineshow.api.dto.ShowDtos;
 import com.cinema.cineshow.core.service.MovieService;
 import com.cinema.cineshow.core.service.TheatreService;
 import com.cinema.cineshow.infrastructure.entity.Show;
+import com.cinema.cineshow.infrastructure.repository.ShowSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class ShowMapper {
 
     @Autowired
     private TheatreMapper theatreMapper;
+
+    @Autowired
+    private ShowSeatRepository showSeatRepository;
 
     public Show toEntity(ShowDtos.ShowUpsertRequest request) {
         Show show = new Show();
@@ -41,6 +45,9 @@ public class ShowMapper {
         response.setTicketPrice(show.getTicketPrice());
         response.setMovie(movieService.getMovie(show.getMovieId()).map(movieMapper::toResponse).orElse(null));
         response.setTheatre(theatreService.getTheatre(show.getTheatreId()).map(theatreMapper::toResponse).orElse(null));
+        
+        response.setAvailableSeatsCount(showSeatRepository.countAvailableSeats(show.getTheatreId(), show.getCsid()));
+        
         return response;
     }
 }

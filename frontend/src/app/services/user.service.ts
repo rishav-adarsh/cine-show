@@ -15,4 +15,10 @@ export class UserService {
       map((response: any) => response.data)
     );
   }
+
+  public updateUser(userId: string, user: any) {
+    return this.http.put(`${baseServerUrl}/users/${userId}`, user).pipe(
+      map((response: any) => response.data)
+    );
+  }
 }

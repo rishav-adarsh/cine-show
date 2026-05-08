@@ -2,19 +2,33 @@
     <div class="profile-container">
         <!-- Profile Header -->
         <div class="profile-header">
-            <div class="image-wrapper">
+            <div class="image-wrapper" (click)="isEditing && toggleEdit()">
                 <img class="profile-image"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-5cZ42du3jN_0TMInbAdcVVn7tHgs0zkwA&usqp=CAU"
+                    [src]="activeUser.profileImageUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-5cZ42du3jN_0TMInbAdcVVn7tHgs0zkwA&usqp=CAU'"
                     alt="Profile image" />
+                <div class="edit-overlay" *ngIf="isEditing">
+                    <mat-icon>edit</mat-icon>
+                </div>
             </div>
             <div class="user-name-group">
-                <h2 class="user-full-name">{{activeUser.firstName}} {{activeUser.lastName}}</h2>
+                <h2 class="user-full-name" *ngIf="!isEditing">{{activeUser.firstName}} {{activeUser.lastName}}</h2>
+                <div class="edit-name-group" *ngIf="isEditing">
+                    <mat-form-field appearance="outline" class="compact-field">
+                        <mat-label>First Name</mat-label>
+                        <input matInput [(ngModel)]="updatedUser.firstName" name="firstName" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="compact-field">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput [(ngModel)]="updatedUser.lastName" name="lastName" required>
+                    </mat-form-field>
+                </div>
                 <span class="user-role-badge">{{userRole}}</span>
             </div>
         </div>
 
         <!-- Info Grid -->
         <div class="info-grid">
+            <!-- Username (Read-only) -->
             <div class="info-card">
                 <div class="info-icon-box">
                     <mat-icon>alternate_email</mat-icon>
@@ -25,16 +39,7 @@
                 </div>
             </div>
 
-            <div class="info-card">
-                <div class="info-icon-box">
-                    <mat-icon>fingerprint</mat-icon>
-                </div>
-                <div class="info-content">
-                    <span class="info-label">User ID</span>
-                    <span class="info-value">{{activeUser.id}}</span>
-                </div>
-            </div>
-
+            <!-- Email (Read-only for security/identity) -->
             <div class="info-card">
                 <div class="info-icon-box">
                     <mat-icon>mail</mat-icon>
@@ -45,16 +50,45 @@
                 </div>
             </div>
 
-            <div class="info-card">
+            <!-- Phone -->
+            <div class="info-card" [class.editing]="isEditing">
                 <div class="info-icon-box">
                     <mat-icon>phone</mat-icon>
                 </div>
                 <div class="info-content">
                     <span class="info-label">Phone Number</span>
-                    <span class="info-value">{{activeUser.phone}}</span>
+                    <span class="info-value" *ngIf="!isEditing">{{activeUser.phone}}</span>
+                    <mat-form-field appearance="outline" *ngIf="isEditing" class="full-width">
+                        <input matInput [(ngModel)]="updatedUser.phone" name="phone">
+                    </mat-form-field>
                 </div>
             </div>
 
+            <!-- Profile Image URL (Only in edit mode) -->
+            <div class="info-card editing" *ngIf="isEditing">
+                <div class="info-icon-box">
+                    <mat-icon>image</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Profile Image URL</span>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <input matInput [(ngModel)]="updatedUser.profileImageUrl" name="profileImageUrl">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- User ID (Read-only) -->
+            <div class="info-card">
+                <div class="info-icon-box">
+                    <mat-icon>fingerprint</mat-icon>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value">{{activeUser.csid}}</span>
+                </div>
+            </div>
+
+            <!-- Account Status (Read-only) -->
             <div class="info-card">
                 <div class="info-icon-box">
                     <mat-icon>verified_user</mat-icon>
@@ -67,6 +101,7 @@
                 </div>
             </div>
 
+            <!-- Role (Read-only) -->
             <div class="info-card">
                 <div class="info-icon-box">
                     <mat-icon>security</mat-icon>
@@ -80,14 +115,27 @@
 
         <!-- Actions -->
         <div class="profile-actions">
-            <button mat-flat-button color="primary" class="action-btn">
-                <mat-icon style="margin-right: 8px;">edit</mat-icon>
-                Update Profile
-            </button>
-            <button mat-stroked-button class="action-btn">
-                <mat-icon style="margin-right: 8px;">share</mat-icon>
-                Share Profile
-            </button>
+            <ng-container *ngIf="!isEditing">
+                <button mat-flat-button color="primary" class="action-btn" (click)="toggleEdit()">
+                    <mat-icon style="margin-right: 8px;">edit</mat-icon>
+                    Update Profile
+                </button>
+                <button mat-stroked-button class="action-btn" (click)="shareProfile()">
+                    <mat-icon style="margin-right: 8px;">share</mat-icon>
+                    Share Profile
+                </button>
+            </ng-container>
+
+            <ng-container *ngIf="isEditing">
+                <button mat-flat-button color="primary" class="action-btn" (click)="saveProfile()">
+                    <mat-icon style="margin-right: 8px;">save</mat-icon>
+                    Save Changes
+                </button>
+                <button mat-stroked-button class="action-btn" (click)="toggleEdit()">
+                    <mat-icon style="margin-right: 8px;">cancel</mat-icon>
+                    Cancel
+                </button>
+            </ng-container>
         </div>
     </div>
 </section>

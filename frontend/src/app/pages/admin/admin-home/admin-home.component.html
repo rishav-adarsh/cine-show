@@ -1,35 +1,76 @@
-<section class="hero-card">
-    <h1 class="hero-title">Admin Command Center</h1>
-    <p class="hero-subtitle">Manage movies, theatres, and live show schedules from one clean dashboard.</p>
-    <div class="feature-strip">
-        <div class="feature-badge">
-            <h4><mat-icon>insights</mat-icon> Operations</h4>
-            <p>Keep your catalog and theatre mapping updated daily.</p>
+<div class="admin-home-container fade-up">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="title">System Overview</h1>
+            <p class="subtitle">Welcome back, {{ activeUser?.firstName || 'Administrator' }}. Everything is running smoothly.</p>
         </div>
-        <div class="feature-badge">
-            <h4><mat-icon>speed</mat-icon> Quick Actions</h4>
-            <p>Add movies, theatres and shows from one control panel.</p>
+        <div class="header-badge">
+            <mat-icon>shield</mat-icon>
+            Admin Access
         </div>
-        <div class="feature-badge">
-            <h4><mat-icon>verified</mat-icon> Reliable Data</h4>
-            <p>Use backend-integrated forms with existing APIs.</p>
+    </header>
+
+    <!-- Management Cards -->
+    <div class="management-grid">
+        <div class="manage-card glass-card" routerLink="/admin/movies">
+            <div class="card-icon-box purple">
+                <mat-icon>movie</mat-icon>
+            </div>
+            <div class="card-body">
+                <h3>Catalog Management</h3>
+                <p>Review, update, and expand your movie library with the latest releases.</p>
+                <div class="card-footer">
+                    <span>Manage Movies</span>
+                    <mat-icon>arrow_forward</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="manage-card glass-card" routerLink="/admin/theatres">
+            <div class="card-icon-box cyan">
+                <mat-icon>theaters</mat-icon>
+            </div>
+            <div class="card-body">
+                <h3>Venue Control</h3>
+                <p>Maintain theatre locations, seat layouts, and facility details.</p>
+                <div class="card-footer">
+                    <span>Manage Theatres</span>
+                    <mat-icon>arrow_forward</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="manage-card glass-card" routerLink="/admin/add-show">
+            <div class="card-icon-box orange">
+                <mat-icon>schedule</mat-icon>
+            </div>
+            <div class="card-body">
+                <h3>Show Scheduling</h3>
+                <p>Plan timings, assign screens, and set ticket pricing for upcoming shows.</p>
+                <div class="card-footer">
+                    <span>Create Show</span>
+                    <mat-icon>arrow_forward</mat-icon>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="app-grid">
-        <div class="content-card">
-            <h3>Movies</h3>
-            <p class="hero-subtitle">Review your current catalog and add new releases quickly.</p>
-            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/movies">Manage Movies</button>
+
+    <!-- Quick Stats Placeholder/Info -->
+    <div class="info-strip glass-card">
+        <div class="info-item">
+            <mat-icon>sync</mat-icon>
+            <div class="info-text">
+                <strong>Real-time Sync</strong>
+                <span>All changes reflect instantly across the platform.</span>
+            </div>
         </div>
-        <div class="content-card">
-            <h3>Theatres</h3>
-            <p class="hero-subtitle">Maintain venues, seating plans, and city presence.</p>
-            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/theatres">Manage Theatres</button>
-        </div>
-        <div class="content-card">
-            <h3>Shows</h3>
-            <p class="hero-subtitle">Schedule timings and ticket prices with optimized workflows.</p>
-            <button mat-flat-button color="primary" class="app-btn" routerLink="/admin/add-show">Create Show</button>
+        <div class="info-item">
+            <mat-icon>security</mat-icon>
+            <div class="info-text">
+                <strong>Data Security</strong>
+                <span>End-to-end encryption for all sensitive operations.</span>
+            </div>
         </div>
     </div>
-</section>
+</div>

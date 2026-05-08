@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -9,6 +9,17 @@ import { LoginService } from 'src/app/services/login.service';
 export class NavbarComponent implements OnInit {
   loginService: LoginService = inject(LoginService);
   activeUser: any = null;
+
+  @ViewChild('accountMenu') accountMenu!: ElementRef<HTMLDetailsElement>;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (this.accountMenu && this.accountMenu.nativeElement.open) {
+      if (!this.accountMenu.nativeElement.contains(event.target as Node)) {
+        this.accountMenu.nativeElement.open = false;
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.loginService.loginStatusObservable.subscribe((loggedIn) => {
