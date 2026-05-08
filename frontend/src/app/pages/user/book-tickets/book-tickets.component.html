@@ -44,9 +44,9 @@
                     <span class="amount">{{ show?.ticketPrice || 0 }}</span>
                 </div>
 
-                <div class="seats-left" [class.warning]="(show?.bookedSeatIds?.length || 0) > 80">
+                <div class="seats-left" [class.warning]="(show?.availableSeatsCount || 0) < 20">
                     <mat-icon>event_seat</mat-icon>
-                    <span>{{ 100 - (show?.bookedSeatIds?.length || 0) }} left</span>
+                    <span>{{ show?.availableSeatsCount || 0 }} left</span>
                 </div>
             </div>
 

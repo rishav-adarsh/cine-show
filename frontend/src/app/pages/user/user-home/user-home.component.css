@@ -1,0 +1,170 @@
+.user-home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 1rem 0;
+}
+
+/* Welcome Section */
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.greeting {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin: 0;
+    font-family: 'Sora', sans-serif;
+    color: #e7edf8;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin: 0.5rem 0 0;
+}
+
+/* Insights Grid */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.insight-card {
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.insight-card:hover {
+    transform: translateY(-5px);
+    background: rgba(15, 31, 62, 0.6);
+    border-color: rgba(106, 141, 255, 0.3);
+}
+
+.insight-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insight-icon-box.orange { background: rgba(255, 138, 128, 0.15); color: #ff8a80; }
+.insight-icon-box.green { background: rgba(97, 214, 194, 0.15); color: #61d6c2; }
+.insight-icon-box.blue { background: rgba(106, 141, 255, 0.15); color: #6a8dff; }
+
+.insight-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.insight-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+}
+
+.insight-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e7edf8;
+}
+
+.arrow {
+    color: #475569;
+    transition: transform 0.2s;
+}
+
+.insight-card:hover .arrow {
+    transform: translateX(4px);
+    color: #6a8dff;
+}
+
+/* Featured Section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.view-link {
+    color: #6a8dff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Promo Card */
+.promo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(106, 141, 255, 0.1) 0%, rgba(97, 214, 194, 0.05) 100%);
+    border-radius: 24px;
+    gap: 2rem;
+}
+
+.promo-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0 0 0.75rem;
+    color: #e7edf8;
+}
+
+.promo-desc {
+    color: #94a3b8;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.promo-image mat-icon {
+    font-size: 120px;
+    width: 120px;
+    height: 120px;
+    color: rgba(106, 141, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .promo-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .promo-image {
+        display: none;
+    }
+}

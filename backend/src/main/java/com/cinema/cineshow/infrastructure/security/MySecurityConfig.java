@@ -33,9 +33,9 @@ public class MySecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] PUBLIC_URLS = {
-            "/auth/generate-token",
-            "/users",
-            "/health",
+            "/v1/auth/generate-token",
+            "/v1/users",
+            "/v1/health",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html"

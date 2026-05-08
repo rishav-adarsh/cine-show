@@ -1,13 +1,69 @@
-<section class="page-shell">
-    <div class="hero-card fade-up">
-        <h1 class="hero-title">Book blockbuster nights in seconds.</h1>
-        <p class="hero-subtitle">
-            CineShow helps you discover movies, compare show timings, pick seats, and confirm bookings with a fast and
-            simple flow.
-        </p>
-        <div class="quick-actions">
-            <button mat-flat-button color="primary" class="app-btn" routerLink="/login">Sign In</button>
-            <button mat-stroked-button class="app-btn" routerLink="/signup">Create Account</button>
+<section class="home-wrapper">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-up">
+            <span class="hero-badge">Now Trending</span>
+            <h1 class="hero-title">Experience Cinema <br> Like Never Before</h1>
+            <p class="hero-subtitle">
+                Discover the latest blockbusters, pick your favorite seats, and book tickets in seconds. Your perfect
+                movie night starts here.
+            </p>
+            <div class="hero-actions">
+                <button mat-flat-button color="primary" class="app-btn large-btn" routerLink="/signup">
+                    Get Started
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>
+                <button mat-stroked-button class="app-btn large-btn" routerLink="/login">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-shell">
+        <!-- Now Showing Section -->
+        <div class="section-container" *ngIf="movies.length > 0">
+            <div class="section-header">
+                <h2 class="section-title">Now Showing</h2>
+                <a routerLink="/login" class="view-all">View All <mat-icon>chevron_right</mat-icon></a>
+            </div>
+            <div class="movie-grid">
+                <app-movie-card *ngFor="let movie of movies" [movieData]="movie" variant="home"></app-movie-card>
+            </div>
+        </div>
+
+        <!-- Why CineShow Section -->
+        <div class="section-container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Why Choose CineShow?</h2>
+                <p class="section-subtitle">We bring the best movie booking experience to your fingertips.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-box">
+                        <mat-icon>bolt</mat-icon>
+                    </div>
+                    <h3>Fast Booking</h3>
+                    <p>Book your favorite movie tickets in just a few clicks with our optimized flow.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-box">
+                        <mat-icon>event_seat</mat-icon>
+                    </div>
+                    <h3>Pick Your Seat</h3>
+                    <p>Interactive seat selection allows you to choose exactly where you want to sit.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-box">
+                        <mat-icon>security</mat-icon>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Your transactions are always safe and encrypted with our secure payment gateway.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>

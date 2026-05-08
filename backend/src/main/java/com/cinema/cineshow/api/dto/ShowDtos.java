@@ -62,6 +62,7 @@ public class ShowDtos {
         private Double ticketPrice;
         private MovieDtos.MovieResponse movie;
         private TheatreDtos.TheatreResponse theatre;
+        private Integer availableSeatsCount;
 
         public String getCsid() {
             return csid;
@@ -109,6 +110,14 @@ public class ShowDtos {
 
         public void setTheatre(TheatreDtos.TheatreResponse theatre) {
             this.theatre = theatre;
+        }
+
+        public Integer getAvailableSeatsCount() {
+            return availableSeatsCount;
+        }
+
+        public void setAvailableSeatsCount(Integer availableSeatsCount) {
+            this.availableSeatsCount = availableSeatsCount;
         }
     }
 }

@@ -499,14 +499,33 @@ a {
     color: #c9d7f3 !important;
 }
 
+.auth-shell .mat-mdc-form-field-icon-suffix {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
 .auth-shell .mat-mdc-input-element {
     color: #f2f6ff !important;
     caret-color: #61d6c2 !important;
     background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    height: 100% !important;
+}
+
+.auth-shell .mat-mdc-form-field-infix {
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
 }
 
 .auth-shell .mat-mdc-input-element::placeholder {
     color: rgba(201, 215, 243, 0.72);
+    line-height: normal !important;
 }
 
 .auth-shell input:-webkit-autofill,

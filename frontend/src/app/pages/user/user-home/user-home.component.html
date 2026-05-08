@@ -1,22 +1,74 @@
-<section class="hero-card">
-    <h1 class="hero-title">Welcome to Your Movie Lounge</h1>
-    <p class="hero-subtitle">Browse current movies, choose showtime, and lock your seats in a few taps.</p>
-    <div class="quick-actions">
-        <button mat-flat-button color="primary" class="app-btn" routerLink="/user/movies">Explore Movies</button>
-        <button mat-stroked-button class="app-btn" routerLink="/user/profile">View Profile</button>
+<div class="user-home-container fade-up">
+    <!-- Welcome Header -->
+    <header class="welcome-section">
+        <div class="welcome-text">
+            <h1 class="greeting">Hi, {{ activeUser?.firstName || 'Movie Buff' }}! 👋</h1>
+            <p class="tagline">What's on your cinematic radar today?</p>
+        </div>
+        <div class="welcome-actions">
+            <button mat-flat-button color="primary" class="app-btn" routerLink="/user/movies">
+                <mat-icon>local_movies</mat-icon>
+                Browse All
+            </button>
+        </div>
+    </header>
+
+    <!-- Quick Insights -->
+    <div class="insights-grid">
+        <div class="insight-card glass-card" routerLink="/user/my-bookings">
+            <div class="insight-icon-box orange">
+                <mat-icon>confirmation_number</mat-icon>
+            </div>
+            <div class="insight-info">
+                <span class="insight-label">My Tickets</span>
+                <span class="insight-value">View Bookings</span>
+            </div>
+            <mat-icon class="arrow">chevron_right</mat-icon>
+        </div>
+
+        <div class="insight-card glass-card" routerLink="/user/explore">
+            <div class="insight-icon-box green">
+                <mat-icon>explore</mat-icon>
+            </div>
+            <div class="insight-info">
+                <span class="insight-label">Discovery</span>
+                <span class="insight-value">Explore Nearby</span>
+            </div>
+            <mat-icon class="arrow">chevron_right</mat-icon>
+        </div>
+
+        <div class="insight-card glass-card" routerLink="/user/profile">
+            <div class="insight-icon-box blue">
+                <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="insight-info">
+                <span class="insight-label">Account</span>
+                <span class="insight-value">My Profile</span>
+            </div>
+            <mat-icon class="arrow">chevron_right</mat-icon>
+        </div>
     </div>
-    <div class="feature-strip">
-        <div class="feature-badge">
-            <h4><mat-icon>bolt</mat-icon> Fast Booking</h4>
-            <p>Complete ticket booking in under a minute.</p>
+
+    <!-- Featured Section -->
+    <div class="featured-section" *ngIf="movies.length > 0">
+        <div class="section-header">
+            <h2 class="section-title">Picking Up Steam</h2>
+            <a routerLink="/user/movies" class="view-link">See all</a>
         </div>
-        <div class="feature-badge">
-            <h4><mat-icon>event_seat</mat-icon> Smart Seats</h4>
-            <p>Visual seat map with real-time occupancy view.</p>
-        </div>
-        <div class="feature-badge">
-            <h4><mat-icon>local_offer</mat-icon> Value Deals</h4>
-            <p>Pick shows across theatres and compare prices.</p>
+        <div class="featured-grid">
+            <app-movie-card *ngFor="let movie of movies" [movieData]="movie" variant="home"></app-movie-card>
         </div>
     </div>
-</section>
+
+    <!-- Promotion Card -->
+    <div class="promo-card glass-card">
+        <div class="promo-content">
+            <h3 class="promo-title">Experience the Best Seats!</h3>
+            <p class="promo-desc">Did you know? You can now pick your favorite seats with our interactive seat map.</p>
+            <button mat-stroked-button class="app-btn" routerLink="/user/explore">Learn More</button>
+        </div>
+        <div class="promo-image">
+            <mat-icon>event_seat</mat-icon>
+        </div>
+    </div>
+</div>

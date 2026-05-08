@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class MovieCardComponent {
 
   @Input() movieData: any;
+  @Input() variant: 'standard' | 'home' = 'standard';
 
   constructor(private router: Router) { }
 

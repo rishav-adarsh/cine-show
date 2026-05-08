@@ -133,11 +133,22 @@ public class ShowSeatRepository {
 
     public int unlockExpiredSeats(LocalDateTime expiryTime) {
         String sql = "UPDATE show_seats SET status = 'AVAILABLE', locked_by = NULL, locked_at = NULL " +
-                     "WHERE status = 'LOCKED' AND locked_at < ?";
+                     "WHERE status = 'LOCKED' AND locked_at < ? AND is_deleted = false";
         int updatedRows = jdbcTemplate.update(sql, expiryTime);
         if (updatedRows > 0) {
             log.info("Unlocked {} expired seats locked before {}", updatedRows, expiryTime);
         }
         return updatedRows;
+    }
+
+    public int countAvailableSeats(String theatreId, String showId) {
+        String sql = "SELECT COUNT(*) FROM seats s " +
+                     "WHERE s.theatre_id = ? AND s.is_deleted = false " +
+                     "AND s.csid NOT IN (" +
+                     "    SELECT ss.seat_id FROM show_seats ss " +
+                     "    WHERE ss.show_id = ? AND ss.status IN ('BOOKED', 'LOCKED') AND ss.is_deleted = false" +
+                     ")";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, theatreId, showId);
+        return count != null ? count : 0;
     }
 }

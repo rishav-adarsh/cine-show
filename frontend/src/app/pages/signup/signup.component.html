@@ -6,7 +6,7 @@
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Username</mat-label>
-            <input formControlName="username" matInput placeholder="Username" />
+            <input formControlName="username" matInput />
             <mat-hint>Username must be unique</mat-hint>
         </mat-form-field>
 
@@ -22,23 +22,23 @@
         <div class="form-row">
             <mat-form-field class="form-input" appearance="outline">
                 <mat-label>First Name</mat-label>
-                <input formControlName="firstName" matInput placeholder="First Name" />
+                <input formControlName="firstName" matInput />
             </mat-form-field>
 
             <mat-form-field class="form-input" appearance="outline">
                 <mat-label>Last Name</mat-label>
-                <input formControlName="lastName" matInput placeholder="Last Name" />
+                <input formControlName="lastName" matInput />
             </mat-form-field>
         </div>
 
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Email</mat-label>
-            <input formControlName="email" matInput placeholder="Email" />
+            <input formControlName="email" matInput />
         </mat-form-field>
 
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Phone</mat-label>
-            <input formControlName="phone" matInput placeholder="Phone" />
+            <input formControlName="phone" matInput />
         </mat-form-field>
 
         <div class="auth-actions">

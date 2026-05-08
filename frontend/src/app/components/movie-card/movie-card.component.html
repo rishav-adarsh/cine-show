@@ -1,11 +1,29 @@
-<article class="movie-card">
-    <img [src]="movieData.poster" class="movie-poster" alt="Movie poster" />
-    <h4 class="movie-title">{{ movieData.movieName }}</h4>
-    <div class="movie-footer">
-        <p class="movie-meta">Duration: {{ movieData.duration }} mins</p>
-        <p class="movie-meta">Rating: {{ movieData.rating }} / 10</p>
-        <button type="button" mat-flat-button color="primary" class="app-btn movie-btn" (click)="bookingNavigation()">
-            Book Tickets
-        </button>
+<article class="movie-card" [class.home-variant]="variant === 'home'">
+    <div class="poster-container">
+        <img [src]="movieData.poster" class="movie-poster" alt="Movie poster" />
+        <div class="movie-overlay" *ngIf="variant === 'home'">
+            <div class="overlay-content">
+                <span class="rating-badge">
+                    <mat-icon>star</mat-icon>
+                    {{ movieData.rating }}
+                </span>
+                <button type="button" mat-mini-fab color="primary" class="play-btn" (click)="bookingNavigation()">
+                    <mat-icon>play_arrow</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="movie-info">
+        <h4 class="movie-title">{{ movieData.movieName }}</h4>
+        <div class="movie-footer">
+            <p class="movie-meta" *ngIf="variant === 'standard'">Duration: {{ movieData.duration }} mins</p>
+            <p class="movie-meta" *ngIf="variant === 'standard'">Rating: {{ movieData.rating }} / 10</p>
+            <p class="movie-meta" *ngIf="variant === 'home'">{{ movieData.duration }} mins • Sci-Fi</p>
+            
+            <button *ngIf="variant === 'standard'" type="button" mat-flat-button color="primary" class="app-btn movie-btn" (click)="bookingNavigation()">
+                Book Tickets
+            </button>
+        </div>
     </div>
 </article>
