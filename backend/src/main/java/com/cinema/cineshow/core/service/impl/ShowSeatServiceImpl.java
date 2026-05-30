@@ -23,7 +23,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
 
     // Seat lock timeout in minutes
     private static final int LOCK_TIMEOUT_MINUTES = 10;
-    private static final int UNLOCK_SEATS_INTERVAL_MILLIS = 5 * 60 * 1000;
+    private static final int UNLOCK_SEATS_INTERVAL_MILLIS = 20 * 60 * 1000;
     
     @Override
     public List<ShowSeat> getShowSeats(String showId) {
@@ -49,7 +49,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
     }
 
     @Override
-    @Scheduled(fixedRate = UNLOCK_SEATS_INTERVAL_MILLIS) // Run every 5 minutes
+    @Scheduled(fixedRate = UNLOCK_SEATS_INTERVAL_MILLIS)
     public void unlockExpiredSeats() {
         log.info("{}: Running scheduled task to unlock expired seats", LOG_IDENTIFIER);
         LocalDateTime expiryTime = LocalDateTime.now().minusMinutes(LOCK_TIMEOUT_MINUTES);
