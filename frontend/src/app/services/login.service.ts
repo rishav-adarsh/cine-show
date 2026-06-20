@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseServerUrl from './helper';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +24,16 @@ export class LoginService {
     return this.http.post(`${baseServerUrl}/auth/generate-token`, loginUser).pipe(
       map((response: any) => response.data)
     );
-    // this.loginStatusSubject.next(true); // should be done after successful post request
-    // so will be emitting the value change in login.component.ts
+  }
+
+  loginWithCredentials(credentials: { username: string; password: string }) {
+    return this.generateToken(credentials).pipe(
+      switchMap((data: any) => {
+        this.setJwtToken(data.token);
+        return this.fetchActiveUser();
+      }),
+      tap((user: any) => this.setActiveUser(user))
+    );
   }
 
   setJwtToken(token: string) {

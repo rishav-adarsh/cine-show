@@ -3,6 +3,25 @@
     <h1 class="auth-title">Welcome Back</h1>
     <p class="auth-subtitle">Sign in to continue booking your favorite shows in seconds.</p>
 
+    <div class="demo-login-hint">
+        <div class="demo-login-copy">
+            <mat-icon>visibility</mat-icon>
+            <div>
+                <p class="demo-login-title">Try the demo</p>
+                <p class="demo-login-text">Explore the full app instantly — no signup needed.</p>
+            </div>
+        </div>
+        <button
+            type="button"
+            mat-stroked-button
+            class="app-btn demo-login-btn"
+            (click)="onDemoLogin()"
+            [disabled]="isLoggingIn">
+            <mat-icon>play_circle</mat-icon>
+            {{ isLoggingIn ? 'Signing in...' : 'Try Demo' }}
+        </button>
+    </div>
+
     <form (ngSubmit)="onLogin()">
         <mat-form-field class="form-input" appearance="outline">
             <mat-label>Username</mat-label>
@@ -19,8 +38,10 @@
         </mat-form-field>
 
         <div class="auth-actions">
-            <button type="submit" mat-flat-button color="primary" class="app-btn">Login</button>
-            <button type="reset" mat-stroked-button class="app-btn">Reset</button>
+            <button type="submit" mat-flat-button color="primary" class="app-btn" [disabled]="isLoggingIn">
+                {{ isLoggingIn ? 'Signing in...' : 'Login' }}
+            </button>
+            <button type="reset" mat-stroked-button class="app-btn" [disabled]="isLoggingIn">Reset</button>
         </div>
     </form>
 </section>

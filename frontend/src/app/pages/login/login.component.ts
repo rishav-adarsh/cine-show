@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DEMO_CREDENTIALS } from 'src/app/constants/demo-credentials';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent {
   hide: boolean = true;
+  isLoggingIn = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -23,56 +25,53 @@ export class LoginComponent {
   };
 
   onLogin() {
-    let username = this.loginUser.username;
-    if (!username) {
+    if (!this.loginUser.username) {
       this.snackBar.open('Username is Required', 'OK', {
         duration: 3 * 1000,
       });
       return;
     }
 
-    let password = this.loginUser.password;
-    if (!password) {
+    if (!this.loginUser.password) {
       this.snackBar.open('Password is Required', 'OK', {
         duration: 3 * 1000,
       });
       return;
     }
 
-    this.loginService.generateToken(this.loginUser).subscribe(
-      (data: any) => {
-        console.log('success: ', data);
-        this.loginService.setJwtToken(data.token);
-        // this.loginService.loginStatusSubject.next(true);
+    this.authenticate(this.loginUser);
+  }
 
-        this.loginService.fetchActiveUser().subscribe(
-          (user: any) => {
-            this.loginService.setActiveUser(user);
-            console.log('user: ', user);
-            
-            // Navigate to home page after successful login
-             this.router.navigateByUrl('/').then(() => {
-               window.location.reload();
-             });
-            
-            this.snackBar.open(`Welcome ${user.username} !!`, 'OK', {
-              duration: 3 * 1000,
-            });
-          },
-          (err: any) => {
-            console.log('error: ', err);
-            this.snackBar.open('Invalid Credentials!!', 'OK', {
-              duration: 3 * 1000,
-            });
-          }
-        );
+  onDemoLogin() {
+    this.authenticate(DEMO_CREDENTIALS);
+  }
+
+  private authenticate(credentials: { username: string; password: string }) {
+    if (this.isLoggingIn) {
+      return;
+    }
+
+    this.isLoggingIn = true;
+    this.loginUser = { ...credentials };
+
+    this.loginService.loginWithCredentials(credentials).subscribe({
+      next: (user: any) => {
+        this.isLoggingIn = false;
+
+        this.router.navigateByUrl('/').then(() => {
+          window.location.reload();
+        });
+
+        this.snackBar.open(`Welcome ${user.username} !!`, 'OK', {
+          duration: 3 * 1000,
+        });
       },
-      (err: any) => {
-        console.log('error: ', err);
+      error: () => {
+        this.isLoggingIn = false;
         this.snackBar.open('Invalid Credentials!! Try Again..', 'OK', {
           duration: 3 * 1000,
         });
-      }
-    );
+      },
+    });
   }
 }
