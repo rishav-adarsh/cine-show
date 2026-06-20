@@ -9,6 +9,32 @@
                 Discover the latest blockbusters, pick your favorite seats, and book tickets in seconds. Your perfect
                 movie night starts here.
             </p>
+
+            <div class="hero-demo-callout glass-card">
+                <div class="hero-demo-icon-wrap">
+                    <mat-icon>local_play</mat-icon>
+                </div>
+
+                <div class="hero-demo-copy">
+                    <span class="hero-demo-badge">Live Demo</span>
+                    <p class="hero-demo-title">Want to try the demo?</p>
+                    <p class="hero-demo-text">No signup needed — explore instantly.</p>
+                </div>
+
+                <div class="hero-demo-divider" aria-hidden="true"></div>
+
+                <button
+                    type="button"
+                    mat-flat-button
+                    color="primary"
+                    class="app-btn hero-demo-btn"
+                    (click)="onDemoLogin()"
+                    [disabled]="isDemoLoggingIn">
+                    <mat-icon>play_circle</mat-icon>
+                    {{ isDemoLoggingIn ? 'Signing in...' : 'Try Demo' }}
+                </button>
+            </div>
+
             <div class="hero-actions">
                 <button mat-flat-button color="primary" class="app-btn large-btn" routerLink="/signup">
                     Get Started
